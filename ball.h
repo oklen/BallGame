@@ -15,6 +15,8 @@ public:
     Ball(int x,int y,int r,QColor color);
     void accelacte(float in_x,float in_y);
     void Move(float time_span);
+    void save();
+    void rollback();
     bool moving = false;
     float getVx() const;
 
@@ -25,6 +27,7 @@ public:
     void setVy(float value);
     float vx,vy;
 private:
+    double savex,savey;
 };
 
 #endif // BALL_H

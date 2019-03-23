@@ -21,6 +21,7 @@ void GameManger::calMove()
     for(int i=0;i<balls_cnt;++i){
         if(toskip.count(i)) continue;
         if(board->balls[i]->moving){
+            board->balls[i]->save();
             board->balls[i]->Move(time_span);
             int nx = board->balls[i]->x,ny=  board->balls[i]->y,
                     nr = 2*board->balls[i]->r;
@@ -30,8 +31,7 @@ void GameManger::calMove()
             if(ny<board->used_bound_width+nr||
                     ny+nr+board->used_bound_width>board->height())
                 board->balls[i]->setVy(-board->balls[i]->getVy());
-            for(int j=0;j<balls_cnt;++j){
-                if(i==j) continue;
+            for(int j=i+1;j<balls_cnt;++j){
                 int dx = std::abs(board->balls[j]->x-nx),
                         dy = std::abs(board->balls[j]->y - ny);
                 if(dx>nr||dy>nr||std::sqrt(dx*dx+dy*dy)>=nr) continue;
@@ -42,7 +42,8 @@ void GameManger::calMove()
 //                board->balls[j]->x+=board->balls[j]->x-nx;
 //                board->balls[i]->y-=board->balls[j]->y-ny;
 //                board->balls[j]->y+=board->balls[j]->y-ny;
-                board->balls[i]->Move(time_span);
+//                board->balls[i]->Move(time_span);
+                board->balls[i]->rollback();
                 toskip.insert(j);
                 break;
             }

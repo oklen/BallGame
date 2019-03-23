@@ -36,6 +36,17 @@ void Ball::Move(float time_span)
     }
 }
 
+void Ball::save()
+{
+    savex = x;savey = y;
+}
+
+void Ball::rollback()
+{
+    x = savex;
+    y = savey;
+}
+
 float Ball::getVx() const
 {
     return vx;
