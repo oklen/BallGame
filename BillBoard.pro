@@ -29,7 +29,9 @@ SOURCES += \
     hole.cpp \
     object.cpp \
     ballobject.cpp \
-    ball.cpp
+    ball.cpp \
+    gamemanger.cpp \
+    testboard.cpp
 
 HEADERS += \
         widget.h \
@@ -37,7 +39,9 @@ HEADERS += \
     hole.h \
     object.h \
     ballobject.h \
-    ball.h
+    ball.h \
+    gamemanger.h \
+    testboard.h
 
 FORMS += \
         widget.ui

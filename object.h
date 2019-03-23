@@ -11,8 +11,7 @@ public:
     explicit Object(QObject *parent = nullptr);
     Object(int x,int y,QColor color);
     virtual void draw(QPainter& painter) = 0;
-    int x,y;
-    bool selected =false;
+    double x,y;
 signals:
 
 public slots:

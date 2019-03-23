@@ -9,7 +9,7 @@ public:
     BallObject(int x,int y,int r,QColor color);
     void draw(QPainter& painter) override;
     QPoint center;
-    bool selected;
+    bool selected =false;
     int r;
 };
 
