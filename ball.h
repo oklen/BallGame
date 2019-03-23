@@ -22,9 +22,9 @@ public:
 
     float getVy() const;
 
-    void setVx(float value);
+    void setVx(double value);
 
-    void setVy(float value);
+    void setVy(double value);
     float vx,vy;
 private:
     double savex,savey;

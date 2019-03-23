@@ -14,19 +14,17 @@ void Ball::accelacte(float in_x, float in_y)
 
 void Ball::Move(float time_span)
 {
-    x+= vx*time_span;
-    y+= vy*time_span;
+
     int dir = 1;
     if(vx<0) dir = -1;
     float ratio = std::abs(vx)/(std::abs(vx)+std::abs(vy));
-    if(ratio!=ratio){
+    if(ratio!=ratio||vx!=vx||vy!=vy){
         moving=false;return;
     }
+    x+= vx*time_span;
+    y+= vy*time_span;
     vx -= time_span*a*ratio*dir; //Very Non-accurate methods
-    if(vx!=vx) {
-        qDebug() <<time_span<<a<<ratio<<dir;
-        abort();
-    }
+
     if(vy<0) dir = -1;
     else dir = 1;
     vy -= time_span*a*(1-ratio)*dir;
@@ -57,12 +55,12 @@ float Ball::getVy() const
     return vy;
 }
 
-void Ball::setVx(float value)
+void Ball::setVx(double value)
 {
     vx = value;
 }
 
-void Ball::setVy(float value)
+void Ball::setVy(double value)
 {
     vy = value;
 }
