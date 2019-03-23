@@ -16,8 +16,15 @@ public:
     void accelacte(float in_x,float in_y);
     void Move(float time_span);
     bool moving = false;
-private:
+    float getVx() const;
+
+    float getVy() const;
+
+    void setVx(float value);
+
+    void setVy(float value);
     float vx,vy;
+private:
 };
 
 #endif // BALL_H

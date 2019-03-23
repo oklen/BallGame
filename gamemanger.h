@@ -3,10 +3,11 @@
 
 #include "widget.h"
 #include <QTimer>
+#include <unordered_set>
 
 class GameManger:public QObject
 {
-    constexpr static float time_span = 0.1;
+    constexpr static float time_span = 0.05;
 public:
     GameManger(MainWindow* child);
     void start();

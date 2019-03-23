@@ -19,14 +19,7 @@ class Widget;
 class MainWindow : public QWidget
 {
     Q_OBJECT
-    const int bound_width = 100;
-    const int hole_size = bound_width*1.9;
-    const int real_width = 3569;
-    const int real_height = 1778;
-    const int rev_scale = 3;
-    const QColor holeColor = Qt::blue;
-    const int hole_shift = 15;
-    const int ball_radius = 11;
+
     bool eventFilter(QObject* who,QEvent* event);
 
 public:
@@ -37,6 +30,17 @@ public:
     std::vector<Ball*> balls;
 
     void Reset();
+
+    const int bound_width = 100;
+    const int hole_size = bound_width*1.9;
+    const int real_width = 3569;
+    const int real_height = 1778;
+    const int rev_scale = 3;
+    const QColor holeColor = Qt::blue;
+    const int hole_shift = 15;
+    const int ball_radius = 11;
+
+    const int used_bound_width = bound_width/rev_scale;
     ~MainWindow();
 
 private:
