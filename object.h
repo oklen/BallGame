@@ -9,7 +9,7 @@ class Object : public QObject
     Q_OBJECT
 public:
     explicit Object(QObject *parent = nullptr);
-    Object(int x,int y,QColor color);
+    Object(float x,float y,QColor color);
     virtual void draw(QPainter& painter) = 0;
     double x,y;
 signals:

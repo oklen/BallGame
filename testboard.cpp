@@ -5,7 +5,7 @@ TestBoard::TestBoard(QWidget *parent) : QWidget(parent)
     for(int i=0;i<ball_amount;++i)
     {
         balls[i] = new Ball(100,100,15,Qt::green);
-        balls[i]->accelacte(10,3);
+        balls[i]->accelacte(10,3);//This to see the acc
     }
     timer.setInterval(10);
     connect(&timer,&QTimer::timeout,this,&TestBoard::calMove);

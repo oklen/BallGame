@@ -21,6 +21,8 @@ bool MainWindow::eventFilter(QObject *who, QEvent *Event)
         mousey = event->y();
         update();
     }else if(Event->type()==QEvent::MouseButtonRelease&&selectedIndex!=-1){
+        balls[selectedIndex]->accelacte((balls[selectedIndex]->x-mousex)/10,
+                                        (balls[selectedIndex]->y-mousey)/10);
         balls[selectedIndex]->selected =false;
         selectedIndex = -1;
         update();
@@ -93,7 +95,6 @@ void MainWindow::paintEvent(QPaintEvent *event)
     if(selectedIndex!=-1){
         QPen mpen = mpainter.pen();
         mpainter.setPen(vectpen);
-//        qDebug() << balls[selectedIndex]->y << mousey;
         mpainter.drawLine(balls[selectedIndex]->x,balls[selectedIndex]->y,mousex,mousey);
         mpainter.setPen(mpen);
     }
@@ -117,6 +118,7 @@ void MainWindow::Reset()
                     balls[5]->y-ball_radius*((i-1)-j*2),ball_radius,Qt::red));
         }
     }
+    update();
 }
 
 MainWindow::~MainWindow()
