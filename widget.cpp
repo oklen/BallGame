@@ -13,22 +13,31 @@ bool MainWindow::eventFilter(QObject *who, QEvent *Event)
             if(std::sqrt(dx*dx+dy*dy)<=balls[i]->r){
                 balls[i]->selected = true;
                 selectedIndex = i;
+                club->showOn = true;
+                club->setCenter(balls[i]->x,balls[i]->y);
+                club->setTops(event->pos().x(),event->pos().y());
             }
     }
     else if(selectedIndex!=-1&&Event->type()==QEvent::MouseMove){
         QMouseEvent *event = dynamic_cast<QMouseEvent*>(Event);
         mousex = event->x();
         mousey = event->y();
+        if(!club->isTooFar(mousex,mousey))
+            club->setTops(mousex,mousey);
+
         update();
     }
     else if(Event->type()==QEvent::MouseButtonRelease&&selectedIndex!=-1){
-        balls[selectedIndex]->accelacte((balls[selectedIndex]->x-mousex)/10,
-                                        (balls[selectedIndex]->y-mousey)/10);
         balls[selectedIndex]->selected =false;
+        club->tops.accelacte((balls[selectedIndex]->x-mousex)/40,
+                             (balls[selectedIndex]->y-mousey)/40);
         selectedIndex = -1;
+//        club->showOn = false;
         update();
         emit PushBall();
-    }else return false;
+    }else if(Event->type()==QEvent::MouseButtonRelease
+             ||Event->type()==QEvent::MouseMove) return true;
+    else return false;
     return true;
 }
 
@@ -36,7 +45,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget),
     selectedIndex{-1},
-    rd(width()/2-100,50,50)
+    rd(width()/2-100,50,50),
+    club(new Club(0,0,Qt::black))
 {
     int Nhole_size = hole_size/rev_scale,Nbound_width=bound_width/rev_scale;
     setFixedSize(real_width/rev_scale,real_height/rev_scale);
@@ -95,13 +105,8 @@ void MainWindow::paintEvent(QPaintEvent *event)
     }
     for(auto bb = balls.begin();bb!=balls.end();++bb)
         (*bb)->draw(mpainter);
-    if(selectedIndex!=-1){
-        QPen mpen = mpainter.pen();
-        mpainter.setPen(vectpen);
-        mpainter.drawLine(balls[selectedIndex]->x,balls[selectedIndex]->y,mousex,mousey);
-        mpainter.setPen(mpen);
-    }
     if(rd.showTurns) rd.draw(mpainter);
+    club->draw(mpainter);
     mpainter.end();
 }
 
@@ -126,8 +131,8 @@ void MainWindow::Reset()
 
     for(int i=1;i<5;++i){
         for(int j=0;j<i;++j){
-            balls.push_back(new Ball(balls[5]->x+ball_radius*2*(i+2),
-                    balls[5]->y-ball_radius*((i-1)-j*2),ball_radius,Qt::red));
+            balls.push_back(new Ball(balls[5]->x+(ball_radius+1)*2*(i+2),
+                    balls[5]->y-(ball_radius+1)*((i-1)-j*2),ball_radius,Qt::red));
             balls.back()->rank = Ball::hong;
         }
     }

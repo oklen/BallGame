@@ -13,6 +13,9 @@
 #include <QDebug>
 #include <QTimer>
 
+#include <deque>
+#include "club.h"
+
 #define _DEBUG_
 namespace Ui {
 class Widget;
@@ -30,7 +33,8 @@ public:
     void paintEvent(QPaintEvent *event);
     Bound *bounds[6];
     Hole *holes[6];
-    std::vector<Ball*> balls;
+    Club *club;
+    std::deque<Ball*> balls;
 
     void Reset();
 

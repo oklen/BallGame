@@ -22,6 +22,7 @@ private:
     QTimer timer;
     int score_playe1r=0,score_player2=0;
     MainWindow* board;
+
     int who = 1;
     Player players[2];
     bool someOneMove = false;

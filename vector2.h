@@ -33,7 +33,18 @@ public:
         return tmp;
     }
 
+    Vector2& operator*=(float times){
+        x*=times;
+        y*=times;
+        return *this;
+    }
+
     Vector2& operator-=(Vector2& in){
+        x-=in.x;
+        y-=in.y;
+        return *this;
+    }
+    Vector2& operator-=(Vector2 in){
         x-=in.x;
         y-=in.y;
         return *this;

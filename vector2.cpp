@@ -2,5 +2,5 @@
 
 Vector2::Vector2()
 {
-
+    x = y = 0;
 }

@@ -24,65 +24,44 @@ void GameManger::start()
 
 void GameManger::nextRound()
 {
+    qDebug() << players[0].scores << players[1].scores;
     switch(players[who].state){
     case Player::hitred:{
+        qDebug()<<"hitred";
         int ban = 0;
-        for(int i=0;i<Col_Order.size();++i){
-            if(Col_Order[i].first->rank!=Ball::bai&&Col_Order[i].second->rank!=Ball::bai)
-                continue;
-            if(Col_Order[i].first->rank!=Ball::bai)
-                Ball::swap(Col_Order[i].first->rank,Col_Order[i].second->rank);
-            if(Col_Order[i].second->rank==Ball::hong) ban=1;
-            else ban = std::min(ban,-Col_Order[i].second->rank);
+        if(Col_Order.empty()) {players[who].state = Player::failed;ban=-4;}
+        else{
+            if(Col_Order[0].second->rank==Ball::hong){
+                for(int i=0;i<falls.size();++i){
+                    if(falls[i]->rank==Ball::hong) ++ban;
+                    else {ban-=falls[i]->rank;break;}
+                }
+            }else ban-=Col_Order[0].second->rank;
         }
-        if(ban>0)
-        for(int i=0;i<falls.size();++i){
-            if(falls[i]->rank==Ball::ball_color::hong)continue;
-            ban = std::min(ban,-falls[i]->rank);
-            falls[i]->restore();
-            board->balls.push_back(falls[i]);
+//        qDebug()<<"ban:"<<ban;
+        if(ban<0) {players[who?1:0].scores-=ban;players[who].state = Player::failed;
         }
-        if(ban>0) players[who].state = Player::hitcolor;
-        else if(ban<=0) {
-            players[who].state =Player::failed;
-            players[who?1:0].scores+=-ban;
-        }
+        else {players[who].scores+=ban;players[who].state = Player::hitcolor;}
         break;
     }
     case Player::hitcolor:{
-        int ban = 0;
-        Ball* firstTouch = nullptr;
-        for(int i=0;i<Col_Order.size();++i)
-        {
-            if(Col_Order[i].first->rank!=Ball::bai&&
-                    Col_Order[i].second->rank!=Ball::bai)
-            {
-                int mx = std::max((int)Col_Order[i].first->rank,
-                                  (int)Col_Order[i].second->rank);
-                if(mx>firstTouch->rank);
-                ban = std::min(ban,-mx);
-                continue;
-            }
-            if(Col_Order[i].first->rank!=Ball::bai)
-                Ball::swap(Col_Order[i].first->rank,Col_Order[i].second->rank);
-            if(!firstTouch) firstTouch = Col_Order[i].second;
-            if(firstTouch->rank<Col_Order[i].second->rank)
-                ban = -firstTouch->rank;
-        }
-        if(ban==0)
-        for(int i=0;i<falls.size();++i){
-            if(falls[i]==firstTouch) {
-                ban=falls[i]->rank;
-                players[who].state = Player::hitred;
-            }
-        }
-        if(players[who].state==Player::hitcolor){
+        qDebug() << "hitcolor";
+        if(Col_Order.empty()){
             players[who].state = Player::failed;
+            players[who?0:1].scores+=4;
+        }else{
+            int score = 0;
+            for(int i=0;i<falls.size();++i){
+                if(falls[i]->rank!=Ball::bai)score+=falls[i]->rank;
+                else {score=-falls[i]->rank;break;}
+            }
+            if(score>0) players[who].state = Player::hitred;
+            else players[who].state = Player::failed;
         }
         break;
     }
     case Player::hitHuang:{
-    break;
+
 
     }
     case Player::hitlv:{
@@ -100,7 +79,28 @@ void GameManger::nextRound()
     case Player::hithei:{
 break;
     }
-    case Player::failed:{
+    };
+    if(!board->balls.empty()){
+        for(int j=0;j<board->balls.size();++j)
+        {
+            if(board->balls[j]->rank == Ball::hong)
+            {
+                for(int i=0;i<falls.size();++i){
+                    if(falls[i]->rank == Ball::hong) continue;
+                    falls[i]->restore();
+                    if(falls[i]->rank!=Ball::bai)
+                    board->balls.push_back(falls[i]);
+                    else {
+                        board->balls.push_front(falls[i]);
+                    }
+                }
+                break;
+            }
+        }
+    }
+    clearBalls();
+    board->update();
+    if(players[who].state == Player::failed){
         who= (who==1?0:1);
         board->rd.setRound(who);
         players[who].state = Player::hitred;
@@ -110,8 +110,6 @@ break;
         QTimer::singleShot(2050,board,&MainWindow::doUpdate);
         return;
     }
-    };
-    clearBalls();
     nextRound();
 }
 
@@ -128,8 +126,11 @@ void GameManger::calFalls()
           {
             if(preciseDetectionCol(*board->holes[i],*board->balls[j]))
             {
+                falls.push_back(board->balls[j]);
+                board->balls[j]->moving =
+                        board->balls[j]->vx =
+                        board->balls[j]->vy = 0;
                 board->balls.erase(board->balls.begin()+j);
-                falls.push_back(board->balls[i]);
                 board->update();
                 break;
             }
@@ -139,7 +140,6 @@ void GameManger::calFalls()
 
 void GameManger::clearBalls()
 {
-    qDebug() << falls.size();
     falls.clear();
     Col_Order.clear();
 }
@@ -147,10 +147,22 @@ void GameManger::clearBalls()
 void GameManger::calMove()
 {
     bool needUpdate = false;
-    int balls_cnt = board->balls.size();
     std::unordered_set<int> toskip;
     someOneMove = false;
     calFalls();
+    int balls_cnt = board->balls.size();
+    if(board->club->tops.moving) {
+        someOneMove = true;
+        if(preciseDetectionCol(*board->balls[0],board->club->tops))
+        {
+            board->balls[0]->vx = board->club->tops.vx;
+            board->balls[0]->vy = board->club->tops.vy;
+            board->club->tops.moving = board->club->showOn =false;
+            board->balls[0]->moving = true;
+        }else board->club->tops.Move(time_span);
+        needUpdate = true;
+    }
+
     for(int i=0;i<balls_cnt;++i){
         if(toskip.count(i)) continue;
         if(board->balls[i]->moving){
@@ -208,8 +220,8 @@ void GameManger::calMove()
                 xaxis.reserved();
                 float b = xaxis.dot(vj);
                 Vector2 Uxj = xaxis*b,Uyj = vj - Uxj;
-                Vector2 Vix = (Uxi+Uxj-(Uxi-Uxj))*0.5;
-                Vector2 Vjx = (Uxi+Uxj+(Uxi-Uxj))*0.5;
+                Vector2 Vix = (Uxi+Uxj-(Uxi-Uxj))*0.45;
+                Vector2 Vjx = (Uxi+Uxj+(Uxi-Uxj))*0.45;
                 Vix+=Uyi;
                 Vjx+=Uyj;
 
@@ -225,6 +237,7 @@ void GameManger::calMove()
     if(needUpdate) board->update();
     if(pushTheBall){
         if(!someOneMove){
+            qDebug() << "calScore";
             pushTheBall = false;
             calScore();
         }
@@ -234,17 +247,18 @@ void GameManger::calMove()
 
 bool GameManger::preciseDetectionCol(Ball &a, Ball &b) const
 {
+    float dx = a.x - b.x,dy = a.y - b.y;
+    if(sqrt(dx*dx+dy*dy)<a.r+b.r) return true;
     double rvx = b.vx  - a.vx,rvy = b.vy - a.vy;
     double rx = b.x - a.x,ry = b.y - a.y;
     if(rvx*rx+rvy*ry>0) return false; //difTf
     double dtime = (abs(rvx*rx+rvy*ry)/(rvx*rvx+rvy*rvy));
-//    qDebug() << dtime << rvx << rx << rvy*ry << rvx*rvx << (rx+rvx*dtime);
-    //exit(0);
 
 
     dtime = std::fmin(dtime,time_span);
     if(a.r+b.r>std::sqrt((rx+rvx*dtime)*(rx+rvx*dtime)+(ry+rvy*dtime)*(ry+rvy*dtime)))
     {
+        if(b.rank!=-1&&a.rank!=-1)
         Col_Order.push_back(std::pair<Ball*,Ball*>{&a,&b});
         return true;
     }

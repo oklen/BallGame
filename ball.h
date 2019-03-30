@@ -11,11 +11,11 @@ class Ball:public BallObject
 {
 public:
     enum ball_color{
-        bai=0,hong=1,huang=2,lv=3,zong=4,lan=5,fen=6,hei=7
+        bai=4,hong=1,huang=2,lv=3,zong=4,lan=5,fen=6,hei=7,club = -1
     };
 
-    constexpr static float a = 0.35;
-    constexpr static float stopBound = 0.2;
+    float a = 1.5;
+    constexpr static float stopBound = 1.6;
 
     static void swap(ball_color& first,ball_color& second){
         ball_color tmp = first;
@@ -36,8 +36,8 @@ public:
     void setVx(double value);
 
     void setVy(double value);
-    float vx,vy;
     ball_color rank;
+    float vx,vy;
 private:
     double savex,savey;
 

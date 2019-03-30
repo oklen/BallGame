@@ -12,6 +12,7 @@ public:
     Object(float x,float y,QColor color);
     virtual void draw(QPainter& painter) = 0;
     double x,y;
+    bool showOn = false;
 signals:
 
 public slots:

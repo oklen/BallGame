@@ -34,7 +34,8 @@ SOURCES += \
     testboard.cpp \
     vector2.cpp \
     rounder.cpp \
-    player.cpp
+    player.cpp \
+    club.cpp
 
 HEADERS += \
         widget.h \
@@ -47,7 +48,8 @@ HEADERS += \
     testboard.h \
     vector2.h \
     rounder.h \
-    player.h
+    player.h \
+    club.h
 
 FORMS += \
         widget.ui
