@@ -31,7 +31,10 @@ SOURCES += \
     ballobject.cpp \
     ball.cpp \
     gamemanger.cpp \
-    testboard.cpp
+    testboard.cpp \
+    vector2.cpp \
+    rounder.cpp \
+    player.cpp
 
 HEADERS += \
         widget.h \
@@ -41,7 +44,10 @@ HEADERS += \
     ballobject.h \
     ball.h \
     gamemanger.h \
-    testboard.h
+    testboard.h \
+    vector2.h \
+    rounder.h \
+    player.h
 
 FORMS += \
         widget.ui

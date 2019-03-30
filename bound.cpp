@@ -9,6 +9,7 @@ Bound::Bound(int xpos, int ypos, int xspan, int yspan,QColor color)
     : Object(xpos,ypos,color),xspan{xspan},yspan{yspan},
       m_rect{QRect(x,y,xspan,yspan)}
 {
+
 }
 
 void Bound::draw(QPainter &painter)

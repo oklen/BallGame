@@ -2,7 +2,7 @@
 
 Ball::Ball(int x, int y, int r, QColor color):BallObject(x,y,r,color)
 {
-
+    vx=vy=0;
 }
 
 void Ball::accelacte(float in_x, float in_y)
@@ -18,9 +18,11 @@ void Ball::Move(float time_span)
     int dir = 1;
     if(vx<0) dir = -1;
     float ratio = std::abs(vx)/(std::abs(vx)+std::abs(vy));
-    if(ratio!=ratio||vx!=vx||vy!=vy){
+    if(ratio!=ratio||vx!=vx||vy!=vy)
+    {
         moving=false;return;
     }
+
     x+= vx*time_span;
     y+= vy*time_span;
     vx -= time_span*a*ratio*dir; //Very Non-accurate methods
@@ -28,8 +30,9 @@ void Ball::Move(float time_span)
     if(vy<0) dir = -1;
     else dir = 1;
     vy -= time_span*a*(1-ratio)*dir;
-    if(std::abs(vx)<stopBound||std::abs(vy)<stopBound) {
-        vx=vy=0;
+    if(std::abs(vx)<stopBound&&std::abs(vy)<stopBound) {
+        vx=0;
+        vy=0;
         moving=false;
     }
 }

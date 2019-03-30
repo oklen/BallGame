@@ -11,6 +11,9 @@ public:
     QPoint center;
     bool selected =false;
     int r;
+    void restore();
+private:
+    double bx,by;
 };
 
 #endif // BALLOBJECT_H

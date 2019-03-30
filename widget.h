@@ -6,10 +6,13 @@
 #include "bound.h"
 #include "hole.h"
 #include "ball.h"
+#include "rounder.h"
 #include <QMouseEvent>
 #include <vector>
 #include <math.h>
 #include <QDebug>
+#include <QTimer>
+
 #define _DEBUG_
 namespace Ui {
 class Widget;
@@ -42,6 +45,12 @@ public:
 
     const int used_bound_width = bound_width/rev_scale;
     ~MainWindow();
+    friend class GameManger;
+
+signals:
+    void PushBall();
+public slots:
+    void doUpdate();
 
 private:
     int selectedIndex;
@@ -49,6 +58,7 @@ private:
     QPainter mpainter;
     Ui::Widget *ui;
     QPen vectpen;
+    rounder rd;
 };
 
 #endif // WIDGET_H

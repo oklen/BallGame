@@ -87,6 +87,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::paintEvent(QPaintEvent *event)
 {
+    mpainter.set
     mpainter.begin(this);
     for(int i=0;i<6;++i)
     {

@@ -1,9 +1,9 @@
 #ifndef HOLE_H
 #define HOLE_H
 
-#include "ballobject.h"
+#include "ball.h"
 
-class Hole:public BallObject
+class Hole:public Ball
 {
 public:
     Hole(int x,int y,int r,QColor color = Qt::blue);
