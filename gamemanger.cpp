@@ -24,24 +24,35 @@ void GameManger::start()
 
 void GameManger::nextRound()
 {
-    qDebug() << players[0].scores << players[1].scores;
     switch(players[who].state){
     case Player::hitred:{
         qDebug()<<"hitred";
         int ban = 0;
+        if(!Col_Order.empty())
+        //qDebug()<<"rank:"<<Col_Order[0].first->rank << Col_Order[0].second->rank;
         if(Col_Order.empty()) {players[who].state = Player::failed;ban=-4;}
         else{
-            if(Col_Order[0].second->rank==Ball::hong){
+            if((Col_Order[0].second->rank==Ball::hong||Col_Order[0].first->rank==Ball::hong)){
                 for(int i=0;i<falls.size();++i){
-                    if(falls[i]->rank==Ball::hong) ++ban;
-                    else {ban-=falls[i]->rank;break;}
+                    if(ban>=0&&falls[i]->rank==Ball::hong) ++ban;
+                    else {ban=std::max(std::min(-4,-falls[i]->rank),-7);}
                 }
-            }else ban-=Col_Order[0].second->rank;
+            }else {
+                for(int i=0;i<Col_Order.size();++i){
+                    ban=std::max(std::min(-4,-
+                                          std::max(Col_Order[i].first->rank,Col_Order[i].second->rank))
+                                 ,-7);
+                }
+                for(int i=0;i<falls.size();++i){
+                    ban=std::max(std::min(-4,-falls[i]->rank),-7);
+                }
+            }
         }
 //        qDebug()<<"ban:"<<ban;
         if(ban<0) {players[who?1:0].scores-=ban;players[who].state = Player::failed;
         }
-        else {players[who].scores+=ban;players[who].state = Player::hitcolor;}
+        else {players[who].scores+=ban;if(ban)players[who].state = Player::hitcolor;
+        else players[who].state = Player::failed;}
         break;
     }
     case Player::hitcolor:{
@@ -53,7 +64,7 @@ void GameManger::nextRound()
             int score = 0;
             for(int i=0;i<falls.size();++i){
                 if(falls[i]->rank!=Ball::bai)score+=falls[i]->rank;
-                else {score=-falls[i]->rank;break;}
+                else {score =falls[i]->rank;break;}
             }
             if(score>0) players[who].state = Player::hitred;
             else players[who].state = Player::failed;
@@ -61,7 +72,6 @@ void GameManger::nextRound()
         break;
     }
     case Player::hitHuang:{
-
 
     }
     case Player::hitlv:{
@@ -100,12 +110,13 @@ break;
     }
     clearBalls();
     board->update();
+    qDebug() << players[0].scores << players[1].scores;
     if(players[who].state == Player::failed){
         who= (who==1?0:1);
         board->rd.setRound(who);
         players[who].state = Player::hitred;
         board->rd.showTurns = true;
-        board->update();
+//        board->update();
         QTimer::singleShot(2000,&board->rd,&rounder::close);
         QTimer::singleShot(2050,board,&MainWindow::doUpdate);
         return;
@@ -150,6 +161,7 @@ void GameManger::calMove()
     std::unordered_set<int> toskip;
     someOneMove = false;
     calFalls();
+    board->shootline->colTest(board->balls);
     int balls_cnt = board->balls.size();
     if(board->club->tops.moving) {
         someOneMove = true;

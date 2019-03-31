@@ -3,9 +3,10 @@
 Club::Club(float x, float y, QColor color):Object (x,y,color),
     tops(x,y,-10,color)
 {
-    tops.a = -40;
+    tops.a = -20;
     mpen.setWidth(m_width);
     mpen.setColor(color);
+
 }
 
 void Club::draw(QPainter &mpainter)
@@ -49,4 +50,9 @@ bool Club::isTooFar(float x,float y)
         return true;
     }
     return false;
+}
+
+Vector2 Club::getDir() const
+{
+    return dir;
 }

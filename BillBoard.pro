@@ -35,7 +35,9 @@ SOURCES += \
     vector2.cpp \
     rounder.cpp \
     player.cpp \
-    club.cpp
+    club.cpp \
+    shootline.cpp \
+    lineobject.cpp
 
 HEADERS += \
         widget.h \
@@ -49,7 +51,9 @@ HEADERS += \
     vector2.h \
     rounder.h \
     player.h \
-    club.h
+    club.h \
+    shootline.h \
+    lineobject.h
 
 FORMS += \
         widget.ui

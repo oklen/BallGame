@@ -11,7 +11,7 @@ class Ball:public BallObject
 {
 public:
     enum ball_color{
-        bai=4,hong=1,huang=2,lv=3,zong=4,lan=5,fen=6,hei=7,club = -1
+        bai=-4,hong=1,huang=2,lv=3,zong=4,lan=5,fen=6,hei=7,club = -1
     };
 
     float a = 1.5;

@@ -15,7 +15,7 @@
 
 #include <deque>
 #include "club.h"
-
+#include "shootline.h"
 #define _DEBUG_
 namespace Ui {
 class Widget;
@@ -34,6 +34,7 @@ public:
     Bound *bounds[6];
     Hole *holes[6];
     Club *club;
+    ShootLine *shootline;
     std::deque<Ball*> balls;
 
     void Reset();

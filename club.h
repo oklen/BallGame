@@ -19,12 +19,15 @@ public:
 
     bool isTooFar(float x,float y);
     Ball tops;
+
+    Vector2 getDir() const;
+
 private:
     Vector2 dir;
     Vector2 mcenter;
     float m_length = 500;
     float m_width = 6;
-    constexpr static float maxSpeed = 90;
+    constexpr static float maxSpeed = 180;
     QPen mpen;
 };
 

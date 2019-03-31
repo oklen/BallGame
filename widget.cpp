@@ -13,9 +13,10 @@ bool MainWindow::eventFilter(QObject *who, QEvent *Event)
             if(std::sqrt(dx*dx+dy*dy)<=balls[i]->r){
                 balls[i]->selected = true;
                 selectedIndex = i;
-                club->showOn = true;
                 club->setCenter(balls[i]->x,balls[i]->y);
                 club->setTops(event->pos().x(),event->pos().y());
+                club->showOn = true;
+                shootline->beginAt = Vector2(balls[i]->x,balls[i]->y);
             }
     }
     else if(selectedIndex!=-1&&Event->type()==QEvent::MouseMove){
@@ -24,7 +25,12 @@ bool MainWindow::eventFilter(QObject *who, QEvent *Event)
         mousey = event->y();
         if(!club->isTooFar(mousex,mousey))
             club->setTops(mousex,mousey);
-
+        shootline->dir = Vector2{mousex-shootline->beginAt.x,
+    mousey-shootline->beginAt.y};
+        shootline->dir.united();
+        shootline->dir.reserved();
+        shootline->CalABC(shootline->beginAt,club->getDir());
+        shootline->showOn = true;
         update();
     }
     else if(Event->type()==QEvent::MouseButtonRelease&&selectedIndex!=-1){
@@ -33,6 +39,7 @@ bool MainWindow::eventFilter(QObject *who, QEvent *Event)
                              (balls[selectedIndex]->y-mousey)/40);
         selectedIndex = -1;
 //        club->showOn = false;
+        shootline->showOn = false;
         update();
         emit PushBall();
     }else if(Event->type()==QEvent::MouseButtonRelease
@@ -46,7 +53,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::Widget),
     selectedIndex{-1},
     rd(width()/2-100,50,50),
-    club(new Club(0,0,Qt::black))
+    club(new Club(0,0,Qt::black)),
+    shootline(new ShootLine)
 {
     int Nhole_size = hole_size/rev_scale,Nbound_width=bound_width/rev_scale;
     setFixedSize(real_width/rev_scale,real_height/rev_scale);
@@ -107,6 +115,8 @@ void MainWindow::paintEvent(QPaintEvent *event)
         (*bb)->draw(mpainter);
     if(rd.showTurns) rd.draw(mpainter);
     club->draw(mpainter);
+    shootline->draw(mpainter);
+
     mpainter.end();
 }
 
