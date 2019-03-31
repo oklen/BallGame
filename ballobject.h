@@ -6,6 +6,7 @@
 class BallObject:public Object
 {
 public:
+    static float scaleSize;
     BallObject(int x,int y,int r,QColor color);
     void draw(QPainter& painter) override;
     QPoint center;

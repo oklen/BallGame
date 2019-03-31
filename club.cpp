@@ -3,10 +3,10 @@
 Club::Club(float x, float y, QColor color):Object (x,y,color),
     tops(x,y,-10,color)
 {
-    tops.a = -20;
     mpen.setWidth(m_width);
     mpen.setColor(color);
-
+    tops.a = -40;
+    tops.r=0;
 }
 
 void Club::draw(QPainter &mpainter)
@@ -16,15 +16,14 @@ void Club::draw(QPainter &mpainter)
     dir = Vector2(mcenter.x - tops.x,mcenter.y-tops.y);
     dir.united();
     tops.rank = Ball::club;
-    mpainter.drawLine(tops.x-dir.x*10,tops.y-dir.y*10,tops.x - dir.x*m_length,tops.y - dir.y*m_length);
+    mpainter.drawLine(tops.x,tops.y,tops.x - dir.x*m_length,tops.y - dir.y*m_length);
 }
 
 
 void Club::setTops(float x, float y)
 {
-//    qDebug() << x;
-    tops.x = x;
-    tops.y = y;
+    tops.x = x-dir.x*ball_radius;
+    tops.y = y-dir.y*ball_radius;
 }
 
 void Club::setCenter(const Vector2 &value)

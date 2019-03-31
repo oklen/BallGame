@@ -19,6 +19,7 @@ public:
 private:
     QPen mpen;
     std::deque<Vector2> mpos;
+    BallObject *targetBall;
     float ball_radius = 5;
 };
 

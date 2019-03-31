@@ -14,7 +14,6 @@ void Ball::accelacte(float in_x, float in_y)
 
 void Ball::Move(float time_span)
 {
-
     int dir = 1;
     if(vx<0) dir = -1;
     float ratio = std::abs(vx)/(std::abs(vx)+std::abs(vy));
@@ -22,7 +21,6 @@ void Ball::Move(float time_span)
     {
         moving=false;return;
     }
-
     x+= vx*time_span;
     y+= vy*time_span;
     vx -= time_span*a*ratio*dir; //Very Non-accurate methods

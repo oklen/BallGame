@@ -13,11 +13,16 @@ public:
     virtual void draw(QPainter& painter) = 0;
     double x,y;
     bool showOn = false;
+    void setBrush(const QBrush &brush);
+
+    void setPen(const QPen &pen);
+
 signals:
 
 public slots:
 
 protected:
+    QPen m_pen;
     QColor m_color;
     QBrush m_brush;
 };

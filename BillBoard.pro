@@ -37,7 +37,8 @@ SOURCES += \
     player.cpp \
     club.cpp \
     shootline.cpp \
-    lineobject.cpp
+    lineobject.cpp \
+    mainwindow.cpp
 
 HEADERS += \
         widget.h \
@@ -53,7 +54,8 @@ HEADERS += \
     player.h \
     club.h \
     shootline.h \
-    lineobject.h
+    lineobject.h \
+    mainwindow.h
 
 FORMS += \
         widget.ui

@@ -22,34 +22,35 @@ class Widget;
 }
 
 
-class MainWindow : public QWidget
+class Board : public QWidget
 {
     Q_OBJECT
 
     bool eventFilter(QObject* who,QEvent* event);
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit Board(QWidget *parent = nullptr);
     void paintEvent(QPaintEvent *event);
     Bound *bounds[6];
     Hole *holes[6];
     Club *club;
     ShootLine *shootline;
     std::deque<Ball*> balls;
+    bool NoOneMove = true;
 
     void Reset();
 
-    const int bound_width = 100;
-    const int hole_size = bound_width*1.9;
+    const float bound_width = 100;
+    const float hole_size = bound_width*1.9;
     const int real_width = 3569;
     const int real_height = 1778;
-    const int rev_scale = 3;
+    const float rev_scale = real_width/1920.0;
     const QColor holeColor = Qt::blue;
-    const int hole_shift = 15;
-    const int ball_radius = 11;
+    const float hole_shift = 40;
+    const float ball_radius = 18;
 
-    const int used_bound_width = bound_width/rev_scale;
-    ~MainWindow();
+    const float used_bound_width = bound_width/rev_scale;
+    ~Board();
     friend class GameManger;
 
 signals:

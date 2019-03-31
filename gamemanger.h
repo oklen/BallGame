@@ -5,6 +5,7 @@
 #include <QTimer>
 #include <unordered_set>
 #include "player.h"
+#include "mainwindow.h"
 
 constexpr static float time_span = 0.05;
 constexpr static float Bound_loss = 0.97;
@@ -12,7 +13,7 @@ constexpr static float Bound_loss = 0.97;
 class GameManger:public QObject
 {
 public:
-    GameManger(MainWindow* child);
+    GameManger(Board* child);
     void start();
     void nextRound();
     void calScore();
@@ -21,7 +22,8 @@ public:
 private:
     QTimer timer;
     int score_playe1r=0,score_player2=0;
-    MainWindow* board;
+    Board* board;
+    MainWindow mainWindow;
 
     int who = 1;
     Player players[2];

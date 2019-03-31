@@ -10,3 +10,13 @@ Object::Object(float x,float y,QColor color):x{x},y{y},
 {
 
 }
+
+void Object::setBrush(const QBrush &brush)
+{
+    m_brush = brush;
+}
+
+void Object::setPen(const QPen &pen)
+{
+    m_pen = pen;
+}

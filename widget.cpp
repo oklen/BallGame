@@ -1,11 +1,12 @@
 #include "widget.h"
 #include "ui_widget.h"
 
-bool MainWindow::eventFilter(QObject *who, QEvent *Event)
+//float MainWindow::rev_scale;
+bool Board::eventFilter(QObject *who, QEvent *Event)
 {
     if(who!=this) return true;
 
-    if(Event->type()==QEvent::MouseButtonPress){
+    if(Event->type()==QEvent::MouseButtonPress&&NoOneMove){
         QMouseEvent *event = dynamic_cast<QMouseEvent*>(Event);
             int i=0;
             int dx=abs(balls[i]->x - event->pos().x()),
@@ -48,7 +49,7 @@ bool MainWindow::eventFilter(QObject *who, QEvent *Event)
     return true;
 }
 
-MainWindow::MainWindow(QWidget *parent) :
+Board::Board(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget),
     selectedIndex{-1},
@@ -56,6 +57,7 @@ MainWindow::MainWindow(QWidget *parent) :
     club(new Club(0,0,Qt::black)),
     shootline(new ShootLine)
 {
+//    ball_radius*=rev_scale;
     int Nhole_size = hole_size/rev_scale,Nbound_width=bound_width/rev_scale;
     setFixedSize(real_width/rev_scale,real_height/rev_scale);
     bounds[0] = new Bound(Nhole_size,
@@ -101,11 +103,16 @@ MainWindow::MainWindow(QWidget *parent) :
     vectpen.setWidth(10);
     Reset();
     installEventFilter(this);
+//    showFullScreen();
 }
 
-void MainWindow::paintEvent(QPaintEvent *event)
+void Board::paintEvent(QPaintEvent *event)
 {
     mpainter.begin(this);
+    mpainter.setBrush(QColor(32,145,30));
+    mpainter.drawRect(rect());
+    shootline->draw(mpainter);
+
     for(int i=0;i<6;++i)
     {
         bounds[i]->draw(mpainter);
@@ -115,12 +122,11 @@ void MainWindow::paintEvent(QPaintEvent *event)
         (*bb)->draw(mpainter);
     if(rd.showTurns) rd.draw(mpainter);
     club->draw(mpainter);
-    shootline->draw(mpainter);
 
     mpainter.end();
 }
 
-void MainWindow::Reset()
+void Board::Reset()
 {
     for(int i=0;i<balls.size();++i)
         delete balls[i];
@@ -151,12 +157,14 @@ void MainWindow::Reset()
     update();
 }
 
-MainWindow::~MainWindow()
+Board::~Board()
 {
+    for(int i=0;i<balls.size();++i)
+        delete balls[i];
     delete ui;
 }
 
-void MainWindow::doUpdate()
+void Board::doUpdate()
 {
     update();
 }

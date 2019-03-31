@@ -1,10 +1,13 @@
 #include "shootline.h"
 
-ShootLine::ShootLine()
+ShootLine::ShootLine():targetBall(new BallObject(0,0,0,Qt::white))
 {
     mpen.setColor(Qt::white);
     mpen.setDashOffset(10);
     mpen.setWidth(2);
+    mpen.setStyle(Qt::DashLine);
+    targetBall->setPen(mpen);
+    targetBall->setBrush(QColor(0,0,0,0));
 }
 
 void ShootLine::draw(QPainter &mpainter)
@@ -26,13 +29,14 @@ void ShootLine::draw(QPainter &mpainter)
             }
         }
         mpainter.drawLine(beginAt.x,beginAt.y,EndPos.x,EndPos.y);
-        mpen.setStyle(Qt::SolidLine);
-        mpainter.setPen(mpen);
-        QBrush mbursh = QColor(0,0,0,0);
-        mpainter.setBrush(mbursh);
-        mpainter.drawEllipse(QPointF(EndPos.x,EndPos.y),ball_radius,ball_radius);
-    }else     mpainter.drawLine(beginAt.x,beginAt.y,beginAt.x+dir.x*1000,beginAt.y+dir.y*1000);
-    //qDebug() << dir.x << dir.y;
+
+        targetBall->r = ball_radius;
+        targetBall->x = EndPos.x;
+        targetBall->y = EndPos.y;
+        targetBall->draw(mpainter);
+        //mpainter.setBrush(mbursh);
+        //mpainter.drawEllipse(QPointF(EndPos.x,EndPos.y),ball_radius,ball_radius);
+    }else     mpainter.drawLine(beginAt.x,beginAt.y,beginAt.x+dir.x*2000,beginAt.y+dir.y*2000);
     mpos.clear();
 
 }

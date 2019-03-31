@@ -1,15 +1,15 @@
 #include "gamemanger.h"
 
-GameManger::GameManger(MainWindow *child):board{child},
+GameManger::GameManger(Board *child):board{child},
     falls{std::vector<Ball*>()}
 {
-    board->show();
+    board->setParent(&mainWindow);
+    mainWindow.showFullScreen();
     timer.setInterval(10);
     connect(&timer,&QTimer::timeout,this,&GameManger::calMove);
-    connect(board,&MainWindow::PushBall,[this](){
+    connect(board,&Board::PushBall,[this](){
         pushTheBall = true;
     });
-    //start();
     timer.start();
 }
 
@@ -19,7 +19,7 @@ void GameManger::start()
     board->rd.setRound(who);
     board->rd.showTurns = true;
     QTimer::singleShot(2000,&board->rd,&rounder::close);
-    QTimer::singleShot(2050,board,&MainWindow::doUpdate);
+    QTimer::singleShot(2050,board,&Board::doUpdate);
 }
 
 void GameManger::nextRound()
@@ -30,8 +30,10 @@ void GameManger::nextRound()
         int ban = 0;
         if(!Col_Order.empty())
         //qDebug()<<"rank:"<<Col_Order[0].first->rank << Col_Order[0].second->rank;
-        if(Col_Order.empty()) {players[who].state = Player::failed;ban=-4;}
-        else{
+        if(Col_Order.empty()) {
+            players[who].state = Player::failed;ban=-4;
+        }
+        else {
             if((Col_Order[0].second->rank==Ball::hong||Col_Order[0].first->rank==Ball::hong)){
                 for(int i=0;i<falls.size();++i){
                     if(ban>=0&&falls[i]->rank==Ball::hong) ++ban;
@@ -118,7 +120,7 @@ break;
         board->rd.showTurns = true;
 //        board->update();
         QTimer::singleShot(2000,&board->rd,&rounder::close);
-        QTimer::singleShot(2050,board,&MainWindow::doUpdate);
+        QTimer::singleShot(2050,board,&Board::doUpdate);
         return;
     }
     nextRound();
@@ -133,6 +135,7 @@ void GameManger::calFalls()
 {
     for(int j=0;j<board->balls.size();++j)
     {
+        if(board->balls[j]->moving)
           for(int i=0;i<6;++i)
           {
             if(preciseDetectionCol(*board->holes[i],*board->balls[j]))
@@ -165,8 +168,11 @@ void GameManger::calMove()
     int balls_cnt = board->balls.size();
     if(board->club->tops.moving) {
         someOneMove = true;
+        qDebug()<<"tops mov!";
+        qDebug() << board->balls[0]->r << board->club->tops.r;
         if(preciseDetectionCol(*board->balls[0],board->club->tops))
         {
+            qDebug() << "Stops:"<<board->club->tops.vx;
             board->balls[0]->vx = board->club->tops.vx;
             board->balls[0]->vy = board->club->tops.vy;
             board->club->tops.moving = board->club->showOn =false;
@@ -181,6 +187,7 @@ void GameManger::calMove()
             someOneMove = true;
             board->balls[i]->save();
             board->balls[i]->Move(time_span);
+//            qDebug()<<board->balls[i]->x;
             double nx = board->balls[i]->x,ny=  board->balls[i]->y,
                     nr = 2*board->balls[i]->r;
             if(nx<board->used_bound_width+nr/2||
@@ -249,16 +256,19 @@ void GameManger::calMove()
     if(needUpdate) board->update();
     if(pushTheBall){
         if(!someOneMove){
-            qDebug() << "calScore";
+            //qDebug() << "calScore";
+            board->NoOneMove = true;
             pushTheBall = false;
             calScore();
         }
+        else board->NoOneMove = false;
     }
 }
 
 
 bool GameManger::preciseDetectionCol(Ball &a, Ball &b) const
 {
+//    qDebug()<<"R:" <<a.r <<b.r;
     float dx = a.x - b.x,dy = a.y - b.y;
     if(sqrt(dx*dx+dy*dy)<a.r+b.r) return true;
     double rvx = b.vx  - a.vx,rvy = b.vy - a.vy;
