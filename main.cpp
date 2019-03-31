@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     Board w;
     GameManger gmr(&w);
-    gmr.mainWindow.showFullScreen();
+//    gmr.mainWindow.showFullScreen();
 //    w.show();
 
 //    TestBoard testBoard;

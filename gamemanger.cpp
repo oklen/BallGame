@@ -3,13 +3,9 @@
 GameManger::GameManger(Board *child):board{child},
     falls{std::vector<Ball*>()},mainWindow(child)
 {
-    //board->setParent(&mainWindow);
-//    mainWindow.adjustSize();
-    //
-    //mainWindow.show();
-    //mainWindow.setFixedSize(1920,1080);
-    mainWindow.showFullScreen();
-//    mainWindow.show();
+
+    mainWindow.show();
+
     timer.setInterval(10);
     connect(&timer,&QTimer::timeout,this,&GameManger::calMove);
     connect(board,&Board::PushBall,[this](){
@@ -170,6 +166,10 @@ void GameManger::calMove()
     someOneMove = false;
     calFalls();
     board->shootline->colTest(board->balls);
+    if(board->shootline->isMposEmpty()){
+        board->shootline->colTest(board->bounds);
+    }
+
     int balls_cnt = board->balls.size();
     if(board->club->tops.moving) {
         someOneMove = true;

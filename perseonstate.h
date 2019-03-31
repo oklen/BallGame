@@ -16,9 +16,12 @@ public:
     QString rank;
     QString Score;
     bool myTurn = false;
+
+
 signals:
 
 public slots:
+
 };
 
 #endif // PERSEONSTATE_H

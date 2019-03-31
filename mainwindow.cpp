@@ -17,10 +17,16 @@ MainWindow::MainWindow(Board* board,QWidget *parent) : QWidget(parent),
     stateShower->setFixedWidth(320);
     stateShower->move(per[0]->width(),board->height());
     per[1]->move(per[0]->width()+stateShower->width(),board->height());
+
 //    QHBoxLayout* hlayout = new QHBoxLayout;
 //    hlayout->addWidget(per[0]);
 //    hlayout->addWidget(stateShower);
 //    hlayout->addWidget(per[1]);
 //    QVBoxLayout *vlayout = new QVBoxLayout;
 //    setLayout(vlayout);
+}
+
+MainWindow::~MainWindow(){
+    board->setParent(nullptr);
+    stateShower =  nullptr;
 }

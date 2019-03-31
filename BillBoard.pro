@@ -40,7 +40,8 @@ SOURCES += \
     lineobject.cpp \
     mainwindow.cpp \
     perseonstate.cpp \
-    stateshower.cpp
+    stateshower.cpp \
+    boundline.cpp
 
 HEADERS += \
         widget.h \
@@ -59,7 +60,8 @@ HEADERS += \
     lineobject.h \
     mainwindow.h \
     perseonstate.h \
-    stateshower.h
+    stateshower.h \
+    boundline.h
 
 FORMS += \
         widget.ui

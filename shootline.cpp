@@ -15,8 +15,7 @@ void ShootLine::draw(QPainter &mpainter)
     if(!showOn) return;
     mpen.setStyle(Qt::DashLine);
     mpainter.setPen(mpen);
-//    if(a&&b)
-//    mpainter.drawLine(beginAt.x,beginAt.y,150,-(c+150*a)/b);
+
     if(!mpos.empty()){
         Vector2 EndPos = {mpos[0].x,mpos[0].y};
         for(int i=1;i<mpos.size();++i){
@@ -38,7 +37,6 @@ void ShootLine::draw(QPainter &mpainter)
         //mpainter.drawEllipse(QPointF(EndPos.x,EndPos.y),ball_radius,ball_radius);
     }else     mpainter.drawLine(beginAt.x,beginAt.y,beginAt.x+dir.x*2000,beginAt.y+dir.y*2000);
     mpos.clear();
-
 }
 
 void ShootLine::colTest(std::deque<Ball*>& balls)
@@ -69,7 +67,25 @@ void ShootLine::colTest(std::deque<Ball*>& balls)
     }
 }
 
+void ShootLine::colTest(Bound **bound)
+{
+    if(!showOn||(a==0&&b==0)) return;
+    for(int i=0;i<6;++i){
+        for(int j=0;j<bound[i]->lines.size();++j){
+            qDebug() << "do meet!";
+            if(bound[i]->lines[j]->MeetAt(a,b,c,dir,ball_radius)){
+                mpos.push_back(bound[i]->lines[j]->meetPoint);
+            }
+        }
+    }
+}
+
 void ShootLine::setBall_radius(float value)
 {
     ball_radius = value;
+}
+
+bool ShootLine::isMposEmpty()
+{
+    return mpos.empty();
 }

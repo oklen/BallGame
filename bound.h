@@ -3,6 +3,9 @@
 
 #include <object.h>
 #include <QWidget>
+#include "lineobject.h"
+#include "boundline.h"
+#include <vector>
 
 class Bound : public Object
 {
@@ -13,6 +16,7 @@ public:
     void draw(QPainter& painter);
     void setColor(QColor color);
     int xspan,yspan;
+    std::vector<BoundLine*> lines;
 signals:
 
 public slots:

@@ -18,3 +18,8 @@ void LineObject::setABC(float ia, float ib, float ic)
     b=ib;
     c=ic;
 }
+
+void LineObject::draw(QPainter &mpainter)
+{
+    throw __FILE__+__LINE__+QString(" Not Implement");
+}
