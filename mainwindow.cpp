@@ -10,10 +10,10 @@ MainWindow::MainWindow(Board* board,QWidget *parent) : QWidget(parent),
         per[i]->setFixedWidth(800);
     }
     stateShower->setParent(this);
-
+    this->setStyleSheet("background-color: black");
     board->setParent(this);
     board->move(0,0);
-    per[0]->move(0,board->height());
+    per[0]->move(-per[0]->width()/3  ,board->height());
     stateShower->setFixedWidth(320);
     stateShower->move(per[0]->width(),board->height());
     per[1]->move(per[0]->width()+stateShower->width(),board->height());

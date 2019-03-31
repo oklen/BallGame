@@ -2,19 +2,28 @@
 
 StateShower::StateShower(QWidget *parent) : QWidget(parent)
 {
+
     QVBoxLayout *vlayout = new QVBoxLayout;
-    state.setText(QString(" 解球"));
+    QFont font;
+    font.setFamily("宋体");
+    font.setPointSize(30);
+    font.setBold(true);
+    state.setFont(font);
+    state.setText(QString("解球"));
+    state.setStyleSheet("color:green");
     vlayout->addWidget(&state);
     resetTime();
     vlayout->addWidget(&time);
+    time.setFont(font);
     vlayout->setAlignment(Qt::AlignHCenter);
+    time.setStyleSheet("color:red");
     timer.setInterval(1000);
     connect(&timer,&QTimer::timeout,this,&StateShower::reduceTime);
     timer.start();
     setLayout(vlayout);
 }
 
-void StateShower::resetTime()
+void StateShower::resetTime() // Counting should reset when one shoot.
 {
     time.setText(QString::number(99));
 }
@@ -22,5 +31,5 @@ void StateShower::resetTime()
 void StateShower::reduceTime()
 {
     if(time.text().toInt()==0) {emit timeOut();resetTime();}
-    else time.setText("  "+QString::number(time.text().toInt()-1));
+    else time.setText(" "+QString::number(time.text().toInt()-1));
 }
