@@ -38,7 +38,9 @@ SOURCES += \
     club.cpp \
     shootline.cpp \
     lineobject.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    perseonstate.cpp \
+    stateshower.cpp
 
 HEADERS += \
         widget.h \
@@ -55,7 +57,9 @@ HEADERS += \
     club.h \
     shootline.h \
     lineobject.h \
-    mainwindow.h
+    mainwindow.h \
+    perseonstate.h \
+    stateshower.h
 
 FORMS += \
         widget.ui

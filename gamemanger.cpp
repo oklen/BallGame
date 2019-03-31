@@ -1,10 +1,15 @@
 #include "gamemanger.h"
 
 GameManger::GameManger(Board *child):board{child},
-    falls{std::vector<Ball*>()}
+    falls{std::vector<Ball*>()},mainWindow(child)
 {
-    board->setParent(&mainWindow);
+    //board->setParent(&mainWindow);
+//    mainWindow.adjustSize();
+    //
+    //mainWindow.show();
+    //mainWindow.setFixedSize(1920,1080);
     mainWindow.showFullScreen();
+//    mainWindow.show();
     timer.setInterval(10);
     connect(&timer,&QTimer::timeout,this,&GameManger::calMove);
     connect(board,&Board::PushBall,[this](){

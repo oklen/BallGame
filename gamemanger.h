@@ -18,12 +18,12 @@ public:
     void nextRound();
     void calScore();
     void calFalls();
+    MainWindow mainWindow;
 
 private:
     QTimer timer;
     int score_playe1r=0,score_player2=0;
     Board* board;
-    MainWindow mainWindow;
 
     int who = 1;
     Player players[2];
