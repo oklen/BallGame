@@ -1,3 +1,4 @@
+
 #ifndef PERSEONSTATE_H
 #define PERSEONSTATE_H
 
@@ -16,7 +17,6 @@ public:
     QString rank;
     QString Score;
     bool myTurn = false;
-
 
 signals:
 

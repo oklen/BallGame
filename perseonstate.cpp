@@ -1,5 +1,5 @@
 #include "perseonstate.h"
-
+#include <Qpalette>
 
 
 
@@ -13,13 +13,17 @@ PerseonState::PerseonState(QWidget *parent) : QWidget(parent),
     personFont.setPointSize(30);
     personFont.setBold(true);
 
-
     QLabel *rankL = new QLabel(QString("Rank:")+rank);
     rankL->setFont(personFont);
     QLabel* nameLabel = new QLabel(name);
     nameLabel->setFont(personFont);
+
+    rankL->setStyleSheet("color:gold");
+
     QLabel* scoreStaticLabel=new QLabel("Score:");
     QLabel* scoreDymicalLabel=new QLabel(Score);
+    scoreStaticLabel->setStyleSheet("color:rgb(135,206,235)");
+    scoreDymicalLabel->setStyleSheet("color:red");
     scoreDymicalLabel->setFont(personFont);
     scoreStaticLabel->setFont(personFont);
 
@@ -43,3 +47,4 @@ PerseonState::PerseonState(QWidget *parent) : QWidget(parent),
     hlayout2->addLayout(vlayout2);
     setLayout(hlayout2);
 }
+
