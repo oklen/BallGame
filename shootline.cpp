@@ -52,7 +52,8 @@ void ShootLine::colTest(std::deque<Ball*>& balls)
 
         float ddx  = (b*b*ball->x-a*b*ball->y-a*c)/(a*a+b*b),
                 ddy = (a*a*ball->y-a*b*ball->x-b*c)/(a*a+b*b);
-
+//       qDebug() << ddx-ball->x << dir.x;
+       if((ddx-beginAt.x)*dir.x<0) continue;
 
         Length = std::sqrt((ball->r*2)*(ball->r*2)-Length*Length);
         if(Length==Length)
