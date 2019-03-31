@@ -28,5 +28,10 @@ MainWindow::MainWindow(Board* board,QWidget *parent) : QWidget(parent),
 
 MainWindow::~MainWindow(){
     board->setParent(nullptr);
+    stateShower->setParent(nullptr);
+    for(int i=0;i<2;++i)
+    {
+        per[i]->setParent(nullptr);
+    }
     stateShower =  nullptr;
 }

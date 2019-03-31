@@ -161,14 +161,11 @@ void GameManger::clearBalls()
 
 void GameManger::calMove()
 {
+    if(!pushTheBall) return;
     bool needUpdate = false;
     std::unordered_set<int> toskip;
     someOneMove = false;
     calFalls();
-    board->shootline->colTest(board->balls);
-    if(board->shootline->isMposEmpty()){
-        board->shootline->colTest(board->bounds);
-    }
 
     int balls_cnt = board->balls.size();
     if(board->club->tops.moving) {

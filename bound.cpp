@@ -10,10 +10,15 @@ Bound::Bound(int xpos, int ypos, int xspan, int yspan,QColor color)
       m_rect{QRect(x,y,xspan,yspan)}
 {
     m_pen.setColor(Qt::black);
+    x = m_rect.x();
+    y = m_rect.y();
+    xspan = m_rect.width();
+    yspan = m_rect.height();
+
     lines.push_back(new BoundLine(x,y,x+xspan,y));
-    lines.push_back(new BoundLine(x,y,x,y-yspan));
-    lines.push_back(new BoundLine(x+xspan,y,x+xspan,y-yspan));
-    lines.push_back(new BoundLine(x,y-yspan,x+xspan,y-yspan));
+    lines.push_back(new BoundLine(x,y,x,y+yspan));
+    lines.push_back(new BoundLine(x+xspan,y,x+xspan,y+yspan));
+    lines.push_back(new BoundLine(x,y+yspan,x+xspan,y+yspan));
 }
 
 void Bound::draw(QPainter &painter)

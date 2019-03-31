@@ -33,8 +33,7 @@ void ShootLine::draw(QPainter &mpainter)
         targetBall->x = EndPos.x;
         targetBall->y = EndPos.y;
         targetBall->draw(mpainter);
-        //mpainter.setBrush(mbursh);
-        //mpainter.drawEllipse(QPointF(EndPos.x,EndPos.y),ball_radius,ball_radius);
+
     }else     mpainter.drawLine(beginAt.x,beginAt.y,beginAt.x+dir.x*2000,beginAt.y+dir.y*2000);
     mpos.clear();
 }
@@ -70,11 +69,12 @@ void ShootLine::colTest(std::deque<Ball*>& balls)
 void ShootLine::colTest(Bound **bound)
 {
     if(!showOn||(a==0&&b==0)) return;
+//    qDebug() << "one True!";
     for(int i=0;i<6;++i){
         for(int j=0;j<bound[i]->lines.size();++j){
-            qDebug() << "do meet!";
-            if(bound[i]->lines[j]->MeetAt(a,b,c,dir,ball_radius)){
+            if(bound[i]->lines[j]->MeetAt(a,b,c,dir,ball_radius,beginAt)){
                 mpos.push_back(bound[i]->lines[j]->meetPoint);
+//                qDebug()<<mpos.back().x <<mpos.back().y;
             }
         }
     }

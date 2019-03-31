@@ -32,6 +32,11 @@ bool Board::eventFilter(QObject *who, QEvent *Event)
         shootline->dir.reserved();
         shootline->CalABC(shootline->beginAt,club->getDir());
         shootline->showOn = true;
+
+        shootline->colTest(balls);
+        if(shootline->isMposEmpty()){
+            shootline->colTest(bounds);
+        }
         update();
     }
     else if(Event->type()==QEvent::MouseButtonRelease&&selectedIndex!=-1){
@@ -39,8 +44,8 @@ bool Board::eventFilter(QObject *who, QEvent *Event)
         club->tops.accelacte((balls[selectedIndex]->x-mousex)/40,
                              (balls[selectedIndex]->y-mousey)/40);
         selectedIndex = -1;
-//        club->showOn = false;
         shootline->showOn = false;
+
         update();
         emit PushBall();
     }else if(Event->type()==QEvent::MouseButtonRelease
@@ -60,6 +65,7 @@ Board::Board(QWidget *parent) :
 //    ball_radius*=rev_scale;
     int Nhole_size = hole_size/rev_scale,Nbound_width=bound_width/rev_scale;
     setFixedSize(real_width/rev_scale,real_height/rev_scale);
+    qDebug()<<Nhole_size<<Nbound_width<<width()<<height();
     bounds[0] = new Bound(Nhole_size,
                           0,
                           (width()-3*Nhole_size)/2,
@@ -83,6 +89,7 @@ Board::Board(QWidget *parent) :
                           height()-Nbound_width,
                           (width()-3*Nhole_size)/2,
                           Nbound_width);
+
 
     holes[0] = new Hole(Nhole_size/2,
                         Nhole_size/2,
@@ -111,7 +118,6 @@ void Board::paintEvent(QPaintEvent *event)
     mpainter.begin(this);
     mpainter.setBrush(QColor(32,145,30));
     mpainter.drawRect(rect());
-    shootline->draw(mpainter);
 
     for(int i=0;i<6;++i)
     {
@@ -122,6 +128,7 @@ void Board::paintEvent(QPaintEvent *event)
         (*bb)->draw(mpainter);
     if(rd.showTurns) rd.draw(mpainter);
     club->draw(mpainter);
+    shootline->draw(mpainter);
 
     mpainter.end();
 }
