@@ -51,7 +51,7 @@ public:
 
     const float used_bound_width = bound_width/rev_scale;
     ~Board();
-    friend class GameManger;
+    friend class GameWorker;
 
 signals:
     void PushBall();

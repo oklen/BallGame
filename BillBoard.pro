@@ -41,7 +41,14 @@ SOURCES += \
     mainwindow.cpp \
     perseonstate.cpp \
     stateshower.cpp \
-    boundline.cpp
+    boundline.cpp \
+    StateMachine/gamestate.cpp \
+    StateMachine/acquirered.cpp \
+    StateMachine/acquirecolor.cpp \
+    StateMachine/acquirefailed.cpp \
+    globalcontrol.cpp \
+    vgcontrol.cpp \
+    StateMachine/acquireorder.cpp
 
 HEADERS += \
         widget.h \
@@ -61,7 +68,14 @@ HEADERS += \
     mainwindow.h \
     perseonstate.h \
     stateshower.h \
-    boundline.h
+    boundline.h \
+    StateMachine/gamestate.h \
+    StateMachine/acquirered.h \
+    StateMachine/acquirecolor.h \
+    StateMachine/acquirefailed.h \
+    globalcontrol.h \
+    vgcontrol.h \
+    StateMachine/acquireorder.h
 
 FORMS += \
         widget.ui

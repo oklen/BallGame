@@ -1,20 +1,16 @@
 #include "gamemanger.h"
 
-GameManger::GameManger(Board *child):board{child},
+GameWorker::GameWorker(Board *child):board{child},
     falls{std::vector<Ball*>()},mainWindow(child)
 {
 
     mainWindow.show();
-
-    timer.setInterval(10);
-    connect(&timer,&QTimer::timeout,this,&GameManger::calMove);
     connect(board,&Board::PushBall,[this](){
         pushTheBall = true;
     });
-    timer.start();
 }
 
-void GameManger::start()
+void GameWorker::start()
 {
     board->Reset();
     board->rd.setRound(who);
@@ -23,116 +19,13 @@ void GameManger::start()
     QTimer::singleShot(2050,board,&Board::doUpdate);
 }
 
-void GameManger::nextRound()
-{
-    switch(players[who].state){
-    case Player::hitred:{
-        qDebug()<<"hitred";
-        int ban = 0;
-        if(!Col_Order.empty())
-        //qDebug()<<"rank:"<<Col_Order[0].first->rank << Col_Order[0].second->rank;
-        if(Col_Order.empty()) {
-            players[who].state = Player::failed;ban=-4;
-        }
-        else {
-            if((Col_Order[0].second->rank==Ball::hong||Col_Order[0].first->rank==Ball::hong)){
-                for(int i=0;i<falls.size();++i){
-                    if(ban>=0&&falls[i]->rank==Ball::hong) ++ban;
-                    else {ban=std::max(std::min(-4,-falls[i]->rank),-7);}
-                }
-            }else {
-                for(int i=0;i<Col_Order.size();++i){
-                    ban=std::max(std::min(-4,-
-                                          std::max(Col_Order[i].first->rank,Col_Order[i].second->rank))
-                                 ,-7);
-                }
-                for(int i=0;i<falls.size();++i){
-                    ban=std::max(std::min(-4,-falls[i]->rank),-7);
-                }
-            }
-        }
-//        qDebug()<<"ban:"<<ban;
-        if(ban<0) {players[who?1:0].scores-=ban;players[who].state = Player::failed;
-        }
-        else {players[who].scores+=ban;if(ban)players[who].state = Player::hitcolor;
-        else players[who].state = Player::failed;}
-        break;
-    }
-    case Player::hitcolor:{
-        qDebug() << "hitcolor";
-        if(Col_Order.empty()){
-            players[who].state = Player::failed;
-            players[who?0:1].scores+=4;
-        }else{
-            int score = 0;
-            for(int i=0;i<falls.size();++i){
-                if(falls[i]->rank!=Ball::bai)score+=falls[i]->rank;
-                else {score =falls[i]->rank;break;}
-            }
-            if(score>0) players[who].state = Player::hitred;
-            else players[who].state = Player::failed;
-        }
-        break;
-    }
-    case Player::hitHuang:{
+//void GameWorker::nextRound()
+//{
+////    qDebug() << players[0].scores << players[1].scores;
+//    board->update();
+//}
 
-    }
-    case Player::hitlv:{
-    break;
-    }
-    case Player::hitzong:{
-    break;
-    }
-    case Player::hitlan:{
-    break;
-    }
-    case Player::hitfen:{
-    break;
-    }
-    case Player::hithei:{
-break;
-    }
-    };
-    if(!board->balls.empty()){
-        for(int j=0;j<board->balls.size();++j)
-        {
-            if(board->balls[j]->rank == Ball::hong)
-            {
-                for(int i=0;i<falls.size();++i){
-                    if(falls[i]->rank == Ball::hong) continue;
-                    falls[i]->restore();
-                    if(falls[i]->rank!=Ball::bai)
-                    board->balls.push_back(falls[i]);
-                    else {
-                        board->balls.push_front(falls[i]);
-                    }
-                }
-                break;
-            }
-        }
-    }
-    clearBalls();
-    board->update();
-    qDebug() << players[0].scores << players[1].scores;
-    if(players[who].state == Player::failed){
-        who= (who==1?0:1);
-        board->rd.setRound(who);
-        players[who].state = Player::hitred;
-        board->rd.showTurns = true;
-//        board->update();
-        QTimer::singleShot(2000,&board->rd,&rounder::close);
-        QTimer::singleShot(2050,board,&Board::doUpdate);
-        return;
-    }
-    nextRound();
-}
-
-void GameManger::calScore()
-{
-    nextRound();
-}
-
-void GameManger::calFalls()
+void GameWorker::calFalls()
 {
     for(int j=0;j<board->balls.size();++j)
     {
@@ -153,13 +46,36 @@ void GameManger::calFalls()
     }
 }
 
-void GameManger::clearBalls()
+void GameWorker::MoveBackBall()
+{
+    if(!board->balls.empty()){
+        for(int j=0;j<board->balls.size();++j)
+        {
+            if(board->balls[j]->rank == Ball::hong)
+            {
+                for(int i=0;i<falls.size();++i){
+                    if(falls[i]->rank == Ball::hong) continue;
+                    falls[i]->restore();
+                    if(falls[i]->rank!=Ball::bai)
+                    board->balls.push_back(falls[i]);
+                    else {
+                        board->balls.push_front(falls[i]);
+                    }
+                }
+                break;
+            }
+        }
+    }
+}
+
+void GameWorker::clearBalls()
 {
     falls.clear();
     Col_Order.clear();
+    board->update();
 }
 
-void GameManger::calMove()
+void GameWorker::calMove()
 {
     if(!pushTheBall) return;
     bool needUpdate = false;
@@ -170,8 +86,8 @@ void GameManger::calMove()
     int balls_cnt = board->balls.size();
     if(board->club->tops.moving) {
         someOneMove = true;
-        qDebug()<<"tops mov!";
-        qDebug() << board->balls[0]->r << board->club->tops.r;
+//        qDebug()<<"tops mov!";
+//        qDebug() << board->balls[0]->r << board->club->tops.r;
         if(preciseDetectionCol(*board->balls[0],board->club->tops))
         {
             qDebug() << "Stops:"<<board->club->tops.vx;
@@ -255,20 +171,22 @@ void GameManger::calMove()
             needUpdate = true;
         }
     }
+
     if(needUpdate) board->update();
+
     if(pushTheBall){
         if(!someOneMove){
-            //qDebug() << "calScore";
+            qDebug() << "calScore";
             board->NoOneMove = true;
             pushTheBall = false;
-            calScore();
+            emit nextRound();
         }
         else board->NoOneMove = false;
     }
 }
 
 
-bool GameManger::preciseDetectionCol(Ball &a, Ball &b) const
+bool GameWorker::preciseDetectionCol(Ball &a, Ball &b) const
 {
 //    qDebug()<<"R:" <<a.r <<b.r;
     float dx = a.x - b.x,dy = a.y - b.y;
