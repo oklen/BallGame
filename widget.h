@@ -6,7 +6,6 @@
 #include "bound.h"
 #include "hole.h"
 #include "ball.h"
-#include "rounder.h"
 #include <QMouseEvent>
 #include <vector>
 #include <math.h>
@@ -65,7 +64,7 @@ private:
     QPainter mpainter;
     Ui::Widget *ui;
     QPen vectpen;
-    rounder rd;
+//    rounder rd;
 };
 
 #endif // WIDGET_H

@@ -9,9 +9,14 @@ StateShower::StateShower(QWidget *parent) : QWidget(parent)
     font.setPointSize(30);
     font.setBold(true);
     state.setFont(font);
-    state.setText(QString("解球"));
-    state.setStyleSheet("color:green;background-color: black");
+    state.setText(QString("时间"));
+    state.setFixedSize(110,60);
+    state.setTextPos({0,50});
+    state.useTransparent = true;
+//    state.scaleTo(state.size());
+//    state.setStyleSheet("color:green;background-color: black");
     vlayout->addWidget(&state);
+    state.show();
     resetTime();
     vlayout->addWidget(&time);
     time.setFont(font);

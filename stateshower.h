@@ -6,13 +6,14 @@
 #include <QString>
 #include <QLabel>
 #include <QTimer>
+#include "Widgets/textlabel.h"
 
 class StateShower : public QWidget
 {
     Q_OBJECT
 public:
     explicit StateShower(QWidget *parent = nullptr);
-    QLabel state;
+    TextLabel state;
     QLabel time;
     void resetTime();
 

@@ -37,7 +37,7 @@ MainWindow::MainWindow(Board* board,QWidget *parent) : QWidget(parent),
     GameTitile->setParent(this);
 
 
-    GameTitile->move((board->width()-GameTitile->width())/2,
+    GameTitile->move((board->width()-GameTitile->image.size().width())/2+20,
                     100);
 
     connect(startGame,&ControlButton::mpress,startGame,&ControlButton::hide);
@@ -78,15 +78,16 @@ MainWindow::~MainWindow(){
 
 
 void MainWindow::paintEvent(QPaintEvent *){
-    QLinearGradient linearGradient(QPointF(0, 0),QPointF(0, 190));
-    linearGradient.setColorAt(0, Qt::yellow);
-    linearGradient.setColorAt(0.5, Qt::red);
-    linearGradient.setColorAt(1, Qt::green);
-    //指定渐变区域以外的区域的扩散方式
-    linearGradient.setSpread(QGradient::RepeatSpread);
+//    QLinearGradient linearGradient(QPointF(0, 0),QPointF(0, 190));
+//    linearGradient.setColorAt(0, Qt::yellow);
+//    linearGradient.setColorAt(0.5, Qt::red);
+//    linearGradient.setColorAt(1, Qt::green);
+//    //指定渐变区域以外的区域的扩散方式
+//    linearGradient.setSpread(QGradient::RepeatSpread);
     //使用渐变作为画刷
     QPainter painter;
     painter.begin(this);
-    painter.setBrush(linearGradient);
-    painter.drawRect(0, 0, 1920, 1024);
+//    painter.setBrush(linearGradient);
+    painter.drawPixmap(0,board->height(),QPixmap("../BallGame/images/grey2.png").scaledToWidth(width()));
+    painter.end();
 }

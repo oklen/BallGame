@@ -6,6 +6,8 @@
 #include "stateshower.h"
 #include "widget.h"
 #include "Widgets/pausemenu.h"
+#include <QTimer>
+#include <QGraphicsColorizeEffect>
 
 class MainWindow : public QWidget
 {

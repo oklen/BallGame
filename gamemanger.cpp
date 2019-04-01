@@ -18,9 +18,9 @@ GameWorker::GameWorker(Board *child):board{child},
 void GameWorker::start()
 {
     board->Reset();
-    board->rd.setRound(who);
-    board->rd.showTurns = true;
-    QTimer::singleShot(2000,&board->rd,&rounder::close);
+//    board->rd.setRound(who);
+//    board->rd.showTurns = true;
+//    QTimer::singleShot(2000,&board->rd,&rounder::close);
     QTimer::singleShot(2050,board,&Board::doUpdate);
     board->GameStarted = true;
     timer.start();

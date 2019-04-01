@@ -58,7 +58,6 @@ Board::Board(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget),
     selectedIndex{-1},
-    rd(width()/2-100,50,50),
     club(new Club(0,0,Qt::black)),
     shootline(new ShootLine)
 {
@@ -125,7 +124,6 @@ void Board::paintEvent(QPaintEvent *event)
     }
     for(auto bb = balls.begin();bb!=balls.end();++bb)
         (*bb)->draw(mpainter);
-    if(rd.showTurns) rd.draw(mpainter);
     club->draw(mpainter);
     shootline->draw(mpainter);
 

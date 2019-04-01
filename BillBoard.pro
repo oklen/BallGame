@@ -33,7 +33,7 @@ SOURCES += \
     gamemanger.cpp \
     testboard.cpp \
     vector2.cpp \
-    rounder.cpp \
+    Widgets/rounder.cpp \
     player.cpp \
     club.cpp \
     shootline.cpp \
@@ -50,7 +50,8 @@ SOURCES += \
     vgcontrol.cpp \
     StateMachine/acquireorder.cpp \
     Widgets/controlbutton.cpp \
-    Widgets/pausemenu.cpp
+    Widgets/pausemenu.cpp \
+    Widgets/textlabel.cpp
 
 HEADERS += \
         widget.h \
@@ -62,7 +63,7 @@ HEADERS += \
     gamemanger.h \
     testboard.h \
     vector2.h \
-    rounder.h \
+    Widgets/rounder.h \
     player.h \
     club.h \
     shootline.h \
@@ -79,7 +80,8 @@ HEADERS += \
     vgcontrol.h \
     StateMachine/acquireorder.h \
     Widgets/controlbutton.h \
-    Widgets/pausemenu.h
+    Widgets/pausemenu.h \
+    Widgets/textlabel.h
 
 FORMS += \
         widget.ui
