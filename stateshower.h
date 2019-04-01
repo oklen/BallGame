@@ -15,6 +15,7 @@ public:
     QLabel state;
     QLabel time;
     void resetTime();
+
 signals:
     void timeOut();
 public slots:

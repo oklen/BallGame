@@ -19,6 +19,7 @@ Bound::Bound(int xpos, int ypos, int xspan, int yspan,QColor color)
     lines.push_back(new BoundLine(x,y,x,y+yspan));
     lines.push_back(new BoundLine(x+xspan,y,x+xspan,y+yspan));
     lines.push_back(new BoundLine(x,y+yspan,x+xspan,y+yspan));
+
 }
 
 void Bound::draw(QPainter &painter)

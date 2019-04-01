@@ -15,10 +15,10 @@ PerseonState::PerseonState(QWidget *parent) : QWidget(parent),
 
     QLabel *rankL = new QLabel(QString("Rank:")+rank);
     rankL->setFont(personFont);
+
     QLabel* nameLabel = new QLabel(name);
     nameLabel->setFont(personFont);
-
-    rankL->setStyleSheet("color:gold");
+    rankL->setStyleSheet("color:gold;background-color: rgb(243,178,26)");
 
     QLabel* scoreStaticLabel=new QLabel("Score:");
     QLabel* scoreDymicalLabel=new QLabel(Score);
@@ -47,4 +47,5 @@ PerseonState::PerseonState(QWidget *parent) : QWidget(parent),
     hlayout2->addLayout(vlayout2);
     setLayout(hlayout2);
 }
+
 

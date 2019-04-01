@@ -1,8 +1,8 @@
 #include "stateshower.h"
+#include <QPainter>
 
 StateShower::StateShower(QWidget *parent) : QWidget(parent)
 {
-
     QVBoxLayout *vlayout = new QVBoxLayout;
     QFont font;
     font.setFamily("宋体");
@@ -10,7 +10,7 @@ StateShower::StateShower(QWidget *parent) : QWidget(parent)
     font.setBold(true);
     state.setFont(font);
     state.setText(QString("解球"));
-    state.setStyleSheet("color:green");
+    state.setStyleSheet("color:green;background-color: black");
     vlayout->addWidget(&state);
     resetTime();
     vlayout->addWidget(&time);

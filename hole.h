@@ -6,7 +6,7 @@
 class Hole:public Ball
 {
 public:
-    Hole(int x,int y,int r,QColor color = Qt::blue);
+    Hole(int x,int y,int r,QColor color = Qt::black);
 };
 
 #endif // HOLE_H

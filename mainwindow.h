@@ -14,6 +14,7 @@ public:
     PerseonState * per[2];
     StateShower* stateShower;
     Board *board;
+    void paintEvent(QPaintEvent *);
     ~MainWindow();
 signals:
 
