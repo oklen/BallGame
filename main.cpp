@@ -7,10 +7,10 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    GlobalControl globalContorl;
+//    GlobalControl globalContorl;
 
-//    ControlButton cb;
-//    cb.show();
+    ControlButton cb;
+    cb.show();
 //    gmr.mainWindow.showFullScreen();
 //    w.show();
 
