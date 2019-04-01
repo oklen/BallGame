@@ -23,6 +23,7 @@ void AcquireColor::nextRound()
                 break;
             }
         }
+        worker->players[worker->who].scores+=score;
         if(score>0)
         {
             //worker->players[worker->who].state = Player::hitred;

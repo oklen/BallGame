@@ -62,6 +62,9 @@ void GlobalControl::nextRound()
                 worker->players[1].scores;
     (*state)->nextRound();
     if(*state==acquireFailed) (*state)->nextRound();
+    gmr.mainWindow.per[0]->setScore(worker->players[0].scores);
+    gmr.mainWindow.per[1]->setScore(worker->players[1].scores);
+    gmr.mainWindow.stateShower->resetTime();
     worker->clearBalls(); //Warning this do board update!
 }
 

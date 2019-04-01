@@ -5,7 +5,7 @@
 
 PerseonState::PerseonState(QWidget *parent) : QWidget(parent),
     personImage{ *new QImage("/root/图片/Lambda.png")},
-    name(""),Score(QString::number(0)),
+    name("Players"),Score(QString::number(0)),
     rank(QString(" 大师"))
 {
     QFont personFont;
@@ -13,23 +13,39 @@ PerseonState::PerseonState(QWidget *parent) : QWidget(parent),
     personFont.setPointSize(20);
     personFont.setBold(true);
 
-    QLabel *rankL = new QLabel(QString("Rank:")+rank);
-    rankL->setFont(personFont);
+    TextLabel *rankL = new TextLabel(QString("Rank:")+rank);
+    rankL->setTextPos({0,30});
+    rankL->TextSize = 20;
+    rankL->useTransparent = true;
 
-    QLabel* nameLabel = new QLabel(name);
+    TextLabel* nameLabel = new TextLabel(name);
     nameLabel->setFont(personFont);
-    rankL->setStyleSheet("color:gold;background-color: rgb(243,178,26)");
+//    rankL->setStyleSheet("color:gold;background-color: rgb(243,178,26)");
 
-    QLabel* scoreStaticLabel=new QLabel("Score:");
-    QLabel* scoreDymicalLabel=new QLabel(Score);
-    scoreStaticLabel->setStyleSheet("color:rgb(135,206,235)");
-    scoreDymicalLabel->setStyleSheet("color:red");
-    scoreDymicalLabel->setFont(personFont);
+    TextLabel* scoreStaticLabel=new TextLabel("Score:");
+    TextLabel* scoreDymicalLabel= new TextLabel(Score);
+
+    scoreStaticLabel->setTextPos({0,30});
+    scoreStaticLabel->TextSize = 20;
+
+    scoreDymicalLabel->setTextPos({0,30});
+    scoreDymicalLabel->TextSize = 20;
+
+    nameLabel->setTextPos({0,30});
+    nameLabel->TextSize = 20;
+
+    scoreStaticLabel->useTransparent = true;
+    scoreDymicalLabel->useTransparent = true;
+    nameLabel->useTransparent = true;
+//    scoreStaticLabel->setStyleSheet("color:rgb(135,206,235)");
+//    scoreDymicalLabel->setStyleSheet("color:red");
+//    scoreDymicalLabel->setFont(personFont);
+    mScores = scoreDymicalLabel;
     scoreStaticLabel->setFont(personFont);
 
     QVBoxLayout* vlayout1 = new QVBoxLayout;
     QLabel* image = new QLabel;
-    image->setPixmap(QPixmap::fromImage(personImage).scaled(80,80));
+    image->setPixmap(QPixmap::fromImage(personImage).scaled(80,70));
 
     vlayout1->addWidget(image);
     vlayout1->addWidget(nameLabel);
@@ -46,6 +62,11 @@ PerseonState::PerseonState(QWidget *parent) : QWidget(parent),
     hlayout2->addLayout(vlayout1);
     hlayout2->addLayout(vlayout2);
     setLayout(hlayout2);
+}
+
+void PerseonState::setScore(int in)
+{
+    mScores->setText(QString::number(in));
 }
 
 

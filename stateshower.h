@@ -7,6 +7,7 @@
 #include <QLabel>
 #include <QTimer>
 #include "Widgets/textlabel.h"
+#include <QDebug>
 
 class StateShower : public QWidget
 {
@@ -14,7 +15,7 @@ class StateShower : public QWidget
 public:
     explicit StateShower(QWidget *parent = nullptr);
     TextLabel state;
-    QLabel time;
+    TextLabel time;
     void resetTime();
 
 signals:

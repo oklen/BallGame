@@ -10,6 +10,7 @@ class TextLabel : public QWidget
     Q_OBJECT
 public:
     explicit TextLabel(QWidget *parent = nullptr);
+    TextLabel(QString in);
     void paintEvent(QPaintEvent* event);
 
     void scaleTo(QSize size);
@@ -20,14 +21,17 @@ public:
     QGraphicsDropShadowEffect* effect;
 
     QPen mpen;
+    int TextSize;
 
     bool useTransparent =false;
+
+    QString content;
+
 signals:
 
 public slots:
 
 private:
-    QString content;
     QPoint textPos;
     QPainter mpainter;
 signals:

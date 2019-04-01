@@ -5,7 +5,7 @@ Club::Club(float x, float y, QColor color):Object (x,y,color),
 {
     mpen.setWidth(m_width);
     mpen.setColor(color);
-    tops.a = -40;
+    tops.a = -70;
     tops.r=0;
 }
 

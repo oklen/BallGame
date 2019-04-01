@@ -4,20 +4,22 @@ MainWindow::MainWindow(Board* board,QWidget *parent) : QWidget(parent),
     stateShower(new StateShower),board(board),pauseMenu(new PauseMenu),
     startGame(new ControlButton),GameTitile(new ControlButton)
 {
+    const int offset = 800;
     for(int i=0;i<2;++i)
     {
         per[i] = new PerseonState;
         per[i]->setParent(this);
-        per[i]->setFixedWidth(800);
+        per[i]->setFixedWidth(500);
+        per[i]->setFixedHeight(130);
     }
     stateShower->setParent(this);
     this->setStyleSheet("background-color: black");
     board->setParent(this);
     board->move(0,0);
-    per[0]->move(-per[0]->width()/3  ,board->height());
+    per[0]->move(offset/10,board->height());
     stateShower->setFixedWidth(320);
-    stateShower->move(per[0]->width(),board->height());
-    per[1]->move(per[0]->width()+stateShower->width(),board->height());
+    stateShower->move(offset,board->height());
+    per[1]->move(board->width()-offset/10-per[1]->width(),board->height());
 
     pauseMenu->setParent(this);
     pauseMenu->move((board->width()-pauseMenu->width())/2,height()-pauseMenu->height()/2);
@@ -30,7 +32,12 @@ MainWindow::MainWindow(Board* board,QWidget *parent) : QWidget(parent),
 
     GameTitile->effect->setEnabled(false);
     GameTitile->setText("");
+
+#ifdef __gnu_linux__
     GameTitile->setPic("../BallGame/images/GameName2.png");
+#elif _WIN64
+    GameTitile->setPic("..\\BallGame\\images\\GameName2.png");
+#endif
     GameTitile->image = GameTitile->image.scaled(900,700);
 
     GameTitile->setFixedSize(800,600);
