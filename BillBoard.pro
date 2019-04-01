@@ -49,7 +49,8 @@ SOURCES += \
     globalcontrol.cpp \
     vgcontrol.cpp \
     StateMachine/acquireorder.cpp \
-    Widgets/controlbutton.cpp
+    Widgets/controlbutton.cpp \
+    Widgets/pausemenu.cpp
 
 HEADERS += \
         widget.h \
@@ -77,7 +78,8 @@ HEADERS += \
     globalcontrol.h \
     vgcontrol.h \
     StateMachine/acquireorder.h \
-    Widgets/controlbutton.h
+    Widgets/controlbutton.h \
+    Widgets/pausemenu.h
 
 FORMS += \
         widget.ui

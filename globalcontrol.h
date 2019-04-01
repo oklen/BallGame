@@ -32,7 +32,6 @@ public:
     void gameContinue();
 
 private:
-    QTimer timer;
 };
 
 #endif // GLOBALCONTROL_H

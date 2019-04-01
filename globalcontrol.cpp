@@ -9,15 +9,31 @@ GlobalControl::GlobalControl():
     acquireOrder(new AcquireOrder(&gmr,state,this))
 {
     worker = &gmr;
-    timer.setInterval(10);
-    QObject::connect(&timer,&QTimer::timeout,&gmr,&GameWorker::calMove);
+
     QObject::connect(&gmr,&GameWorker::nextRound,[this](){
         this->nextRound();
     });
     *state = acquireRed;
-    timer.start();
-    restart();
+
     worker->mainWindow.showFullScreen();
+    QObject::connect(worker->mainWindow.startGame,&ControlButton::mpress,[this](){
+        this->restart();
+        this->worker->mainWindow.pauseMenu->hide();
+    });
+
+    QObject::connect(worker->mainWindow.pauseMenu->restart,&ControlButton::mpress,[this](){
+        this->restart();
+        this->worker->mainWindow.pauseMenu->hide();
+    });
+
+    QObject::connect(&worker->mainWindow,&MainWindow::gamePause,[this](){
+        this->pause();
+    });
+
+    QObject::connect(&worker->mainWindow,&MainWindow::gameContinue,[this](){
+        this->gameContinue();
+        this->worker->mainWindow.pauseMenu->hide();
+    });
 }
 
 GameState *GlobalControl::getAR()
@@ -52,15 +68,18 @@ void GlobalControl::nextRound()
 void GlobalControl::restart()
 {
     worker->board->Reset();
-    timer.start();
+    worker->timer.start();
+    worker->board->GameStarted = true;
 }
 
 void GlobalControl::pause()
 {
-    timer.stop();
+    worker->timer.stop();
+    worker->board->GameStarted = false;
 }
 
 void GlobalControl::gameContinue()
 {
-    timer.start();
+    worker->timer.start();
+    worker->board->GameStarted = true;
 }

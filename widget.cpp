@@ -4,9 +4,9 @@
 //float MainWindow::rev_scale;
 bool Board::eventFilter(QObject *who, QEvent *Event)
 {
-    if(who!=this) return true;
+    if(who!=this) return false;
 
-    if(Event->type()==QEvent::MouseButtonPress&&NoOneMove){
+    if(Event->type()==QEvent::MouseButtonPress&&NoOneMove&&GameStarted){
         QMouseEvent *event = dynamic_cast<QMouseEvent*>(Event);
             int i=0;
             int dx=abs(balls[i]->x - event->pos().x()),
@@ -134,8 +134,12 @@ void Board::paintEvent(QPaintEvent *event)
 
 void Board::Reset()
 {
-    for(int i=0;i<balls.size();++i)
-        delete balls[i];
+    while(!balls.empty()){
+        auto p = balls.back();
+        balls.pop_back();
+        delete  p;
+    }
+
     int xPos[] = {800-100,800,800,800,real_width/2,real_width/4*3,real_width/10*9},
     yPos[] {real_height/2,real_height/2,real_height/2-292,real_height/2+292,real_height/2
     ,real_height/2,real_height/2};

@@ -53,6 +53,7 @@ public:
     ~Board();
     friend class GameWorker;
 
+    bool GameStarted = false;
 signals:
     void PushBall();
 public slots:

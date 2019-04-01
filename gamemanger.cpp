@@ -2,11 +2,16 @@
 
 GameWorker::GameWorker(Board *child):board{child},
     falls{std::vector<Ball*>()},mainWindow(child)
-{
-
+{    
+    timer.setInterval(10);
+    QObject::connect(&timer,&QTimer::timeout,this,&GameWorker::calMove);
     mainWindow.show();
     connect(board,&Board::PushBall,[this](){
         pushTheBall = true;
+    });
+
+    connect(mainWindow.pauseMenu->quit,&ControlButton::mpress,[](){
+       exit(0);
     });
 }
 
@@ -17,6 +22,8 @@ void GameWorker::start()
     board->rd.showTurns = true;
     QTimer::singleShot(2000,&board->rd,&rounder::close);
     QTimer::singleShot(2050,board,&Board::doUpdate);
+    board->GameStarted = true;
+    timer.start();
 }
 
 void GameWorker::calFalls()
@@ -84,7 +91,6 @@ void GameWorker::calMove()
 //        qDebug() << board->balls[0]->r << board->club->tops.r;
         if(preciseDetectionCol(*board->balls[0],board->club->tops))
         {
-            qDebug() << "Stops:"<<board->club->tops.vx;
             board->balls[0]->vx = board->club->tops.vx;
             board->balls[0]->vy = board->club->tops.vy;
             board->club->tops.moving = board->club->showOn =false;
@@ -170,7 +176,7 @@ void GameWorker::calMove()
 
     if(pushTheBall){
         if(!someOneMove){
-            qDebug() << "calScore";
+//            qDebug() << "calScore";
             board->NoOneMove = true;
             pushTheBall = false;
             emit nextRound();

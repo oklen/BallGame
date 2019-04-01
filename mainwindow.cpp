@@ -1,9 +1,9 @@
 #include "mainwindow.h"
 
 MainWindow::MainWindow(Board* board,QWidget *parent) : QWidget(parent),
-    stateShower(new StateShower),board(board)
+    stateShower(new StateShower),board(board),pauseMenu(new PauseMenu),
+    startGame(new ControlButton)
 {
-
     for(int i=0;i<2;++i)
     {
         per[i] = new PerseonState;
@@ -19,12 +19,38 @@ MainWindow::MainWindow(Board* board,QWidget *parent) : QWidget(parent),
     stateShower->move(per[0]->width(),board->height());
     per[1]->move(per[0]->width()+stateShower->width(),board->height());
 
-//    QHBoxLayout* hlayout = new QHBoxLayout;
-//    hlayout->addWidget(per[0]);
-//    hlayout->addWidget(stateShower);
-//    hlayout->addWidget(per[1]);
-//    QVBoxLayout *vlayout = new QVBoxLayout;
-//    setLayout(vlayout);
+    pauseMenu->setParent(this);
+    pauseMenu->move((board->width()-pauseMenu->width())/2,height()-pauseMenu->height()/2);
+    pauseMenu->hide();
+
+    startGame->setParent(this);
+    startGame->move((board->width()-startGame->width())/2,
+                    height()-startGame->height()/2);
+    startGame->show();
+
+    connect(startGame,&ControlButton::mpress,startGame,&ControlButton::hide);
+    connect(pauseMenu->resume,&ControlButton::mpress,[this](){
+        this->pauseMenu->hide();
+        emit this->gameContinue();
+    });
+    connect(pauseMenu->restart,&ControlButton::mpress,[this](){
+        this->pauseMenu->hide();
+        emit this->gameContinue();
+    });
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key()==Qt::Key_Escape){
+        if(pauseMenu->isVisible()) {
+            pauseMenu->hide();
+            emit gameContinue();
+        }
+        else if(board->GameStarted){
+            pauseMenu->show();
+            emit gamePause();
+        }
+    }
 }
 
 MainWindow::~MainWindow(){

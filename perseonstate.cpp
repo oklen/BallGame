@@ -10,7 +10,7 @@ PerseonState::PerseonState(QWidget *parent) : QWidget(parent),
 {
     QFont personFont;
     personFont.setFamily("宋体");
-    personFont.setPointSize(30);
+    personFont.setPointSize(20);
     personFont.setBold(true);
 
     QLabel *rankL = new QLabel(QString("Rank:")+rank);

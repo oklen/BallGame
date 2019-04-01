@@ -15,7 +15,6 @@ class GameWorker:public QObject
     Q_OBJECT
 public:
     GameWorker(Board* child);
-    void start();
 //    void nextRound();
 
     void calFalls();
@@ -36,12 +35,14 @@ public:
 
 //private:
     bool pushTheBall = false;
+    QTimer timer;
 
 signals:
     void nextRound();
 public slots:
     void calMove();
     bool preciseDetectionCol(Ball& a,Ball& b) const;
+    void start();
 };
 
 #endif // GAMEMANGER_H
