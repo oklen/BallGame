@@ -108,7 +108,6 @@ Board::Board(QWidget *parent) :
     ui->setupUi(this);
     vectpen.setColor(Qt::green);
     vectpen.setWidth(10);
-    Reset();
     installEventFilter(this);
 //    showFullScreen();
 }

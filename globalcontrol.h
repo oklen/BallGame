@@ -27,6 +27,9 @@ public:
     GameState* getLast();
 
     void nextRound();
+    void restart();
+    void pause();
+    void gameContinue();
 
 private:
     QTimer timer;

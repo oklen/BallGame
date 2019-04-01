@@ -16,6 +16,8 @@ GlobalControl::GlobalControl():
     });
     *state = acquireRed;
     timer.start();
+    restart();
+    worker->mainWindow.showFullScreen();
 }
 
 GameState *GlobalControl::getAR()
@@ -45,4 +47,20 @@ void GlobalControl::nextRound()
     (*state)->nextRound();
     if(*state==acquireFailed) (*state)->nextRound();
     worker->clearBalls(); //Warning this do board update!
+}
+
+void GlobalControl::restart()
+{
+    worker->board->Reset();
+    timer.start();
+}
+
+void GlobalControl::pause()
+{
+    timer.stop();
+}
+
+void GlobalControl::gameContinue()
+{
+    timer.start();
 }

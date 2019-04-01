@@ -48,7 +48,8 @@ SOURCES += \
     StateMachine/acquirefailed.cpp \
     globalcontrol.cpp \
     vgcontrol.cpp \
-    StateMachine/acquireorder.cpp
+    StateMachine/acquireorder.cpp \
+    Widgets/controlbutton.cpp
 
 HEADERS += \
         widget.h \
@@ -75,7 +76,8 @@ HEADERS += \
     StateMachine/acquirefailed.h \
     globalcontrol.h \
     vgcontrol.h \
-    StateMachine/acquireorder.h
+    StateMachine/acquireorder.h \
+    Widgets/controlbutton.h
 
 FORMS += \
         widget.ui

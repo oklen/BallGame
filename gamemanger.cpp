@@ -19,12 +19,6 @@ void GameWorker::start()
     QTimer::singleShot(2050,board,&Board::doUpdate);
 }
 
-//void GameWorker::nextRound()
-//{
-////    qDebug() << players[0].scores << players[1].scores;
-//    board->update();
-//}
-
 void GameWorker::calFalls()
 {
     for(int j=0;j<board->balls.size();++j)
