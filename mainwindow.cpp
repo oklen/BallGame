@@ -2,7 +2,7 @@
 
 MainWindow::MainWindow(Board* board,QWidget *parent) : QWidget(parent),
     stateShower(new StateShower),board(board),pauseMenu(new PauseMenu),
-    startGame(new ControlButton)
+    startGame(new ControlButton),GameTitile(new ControlButton)
 {
     for(int i=0;i<2;++i)
     {
@@ -25,10 +25,23 @@ MainWindow::MainWindow(Board* board,QWidget *parent) : QWidget(parent),
 
     startGame->setParent(this);
     startGame->move((board->width()-startGame->width())/2,
-                    height()-startGame->height()/2);
+                    height()+2*startGame->height());
     startGame->show();
 
+    GameTitile->effect->setEnabled(false);
+    GameTitile->setText("");
+    GameTitile->setPic("../BallGame/images/GameName2.png");
+    GameTitile->image = GameTitile->image.scaled(900,700);
+
+    GameTitile->setFixedSize(800,600);
+    GameTitile->setParent(this);
+
+
+    GameTitile->move((board->width()-GameTitile->width())/2,
+                    100);
+
     connect(startGame,&ControlButton::mpress,startGame,&ControlButton::hide);
+    connect(startGame,&ControlButton::mpress,GameTitile,&ControlButton::hide);
     connect(pauseMenu->resume,&ControlButton::mpress,[this](){
         this->pauseMenu->hide();
         emit this->gameContinue();

@@ -20,6 +20,7 @@ public:
     void mouseReleaseEvent(QMouseEvent* event);
 
 
+    void scaleTo(QSize size);
     QPixmap image;
     QPainter mpainter;
     void setText(QString in);

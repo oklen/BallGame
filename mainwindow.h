@@ -19,6 +19,7 @@ public:
     Board *board;
     PauseMenu *pauseMenu;
     ControlButton *startGame;
+    ControlButton *GameTitile;
     void paintEvent(QPaintEvent *);
     ~MainWindow();
 signals:

@@ -48,6 +48,12 @@ void ControlButton::mouseReleaseEvent(QMouseEvent *event)
     move(x(),y()-2);
 }
 
+void ControlButton::scaleTo(QSize size)
+{
+    image = image.scaled(size);
+    setFixedSize(size);
+}
+
 
 void ControlButton::setText(QString in)
 {
@@ -58,5 +64,9 @@ void ControlButton::setText(QString in)
 void ControlButton::setPic(QString in)
 {
     image = QPixmap(in);
+//    image = image.scaled(250,100);
+//    setMask(image.mask());
+//    setFixedSize(image.size());
+    setMask(QBitmap(image));
     update();
 }
