@@ -1,11 +1,11 @@
 #include "club.h"
 
 Club::Club(float x, float y, QColor color):Object (x,y,color),
-    tops(x,y,-10,color)
+    tops(x,y,-10,color),clubImage(new QPixmap("../BallGame/images/pol.png"))
 {
     mpen.setWidth(m_width);
     mpen.setColor(color);
-    tops.a = -70;
+    tops.a = -100;
     tops.r=0;
 }
 
@@ -15,8 +15,21 @@ void Club::draw(QPainter &mpainter)
     mpainter.setPen(mpen);
     dir = Vector2(mcenter.x - tops.x,mcenter.y-tops.y);
     dir.united();
+    QTransform trans;
+    trans.translate(tops.x,tops.y);
+    mpainter.setTransform(trans);
+    float result  = std::atan(dir.y/dir.x)*180/3.14;
+    if(result == result)
+    {
+        if(dir.x>0) result = 180+result;
+        mpainter.rotate(result);
+    };
+    mpainter.drawPixmap(0,-clubImage->height()/2,*clubImage);
+    trans.reset();
+    mpainter.setTransform(trans);
+
     tops.rank = Ball::club;
-    mpainter.drawLine(tops.x,tops.y,tops.x - dir.x*m_length,tops.y - dir.y*m_length);
+//    mpainter.drawLine(tops.x,tops.y,tops.x - dir.x*m_length,tops.y - dir.y*m_length);
 }
 
 

@@ -18,9 +18,11 @@ GameWorker::GameWorker(Board *child):board{child},
 void GameWorker::start()
 {
     board->Reset();
+
 //    board->rd.setRound(who);
 //    board->rd.showTurns = true;
 //    QTimer::singleShot(2000,&board->rd,&rounder::close);
+
     QTimer::singleShot(2050,board,&Board::doUpdate);
     board->GameStarted = true;
     timer.start();
@@ -58,7 +60,7 @@ void GameWorker::MoveBackBall()
                     if(falls[i]->rank == Ball::hong) continue;
                     falls[i]->restore();
                     if(falls[i]->rank!=Ball::bai)
-                    board->balls.push_back(falls[i]);
+                        board->balls.push_back(falls[i]);
                     else {
                         board->balls.push_front(falls[i]);
                     }
@@ -157,8 +159,8 @@ void GameWorker::calMove()
                 xaxis.reserved();
                 float b = xaxis.dot(vj);
                 Vector2 Uxj = xaxis*b,Uyj = vj - Uxj;
-                Vector2 Vix = (Uxi+Uxj-(Uxi-Uxj))*0.45;
-                Vector2 Vjx = (Uxi+Uxj+(Uxi-Uxj))*0.45;
+                Vector2 Vix = (Uxi+Uxj-(Uxi-Uxj))*Ball_loss;
+                Vector2 Vjx = (Uxi+Uxj+(Uxi-Uxj))*Ball_loss;
                 Vix+=Uyi;
                 Vjx+=Uyj;
 
@@ -189,16 +191,21 @@ void GameWorker::calMove()
 bool GameWorker::preciseDetectionCol(Ball &a, Ball &b) const
 {
 //    qDebug()<<"R:" <<a.r <<b.r;
+
+    float dr = a.r+b.r;
+    if(a.rank==Ball::hole){
+        dr-=b.r;
+    }
     float dx = a.x - b.x,dy = a.y - b.y;
-    if(sqrt(dx*dx+dy*dy)<a.r+b.r) return true;
+    if(sqrt(dx*dx+dy*dy)<dr) return true;
     double rvx = b.vx  - a.vx,rvy = b.vy - a.vy;
     double rx = b.x - a.x,ry = b.y - a.y;
+
     if(rvx*rx+rvy*ry>0) return false; //difTf
     double dtime = (abs(rvx*rx+rvy*ry)/(rvx*rvx+rvy*rvy));
 
-
     dtime = std::fmin(dtime,time_span);
-    if(a.r+b.r>std::sqrt((rx+rvx*dtime)*(rx+rvx*dtime)+(ry+rvy*dtime)*(ry+rvy*dtime)))
+    if(dr>std::sqrt((rx+rvx*dtime)*(rx+rvx*dtime)+(ry+rvy*dtime)*(ry+rvy*dtime)))
     {
         if(b.rank!=-1&&a.rank!=-1)
         Col_Order.push_back(std::pair<Ball*,Ball*>{&a,&b});

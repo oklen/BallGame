@@ -10,12 +10,9 @@
 class Ball:public BallObject
 {
 public:
-    enum ball_color{
-        bai=-6,hong=1,huang=2,lv=3,zong=4,lan=5,fen=6,hei=7,club = -1
-    };
 
-    float a = 1.5;
-    constexpr static float stopBound = 1.6;
+    float a = 2.5;
+    constexpr static float stopBound = 1.5;
 
     static void swap(ball_color& first,ball_color& second){
         ball_color tmp = first;
@@ -23,6 +20,7 @@ public:
         second = tmp;
     }
 
+    void draw(QPainter& mpainter);
     Ball(int x,int y,int r,QColor color);
     void accelacte(float in_x,float in_y);
     void Move(float time_span);
@@ -37,6 +35,7 @@ public:
 
     void setVy(double value);
     ball_color rank;
+    QPixmap image;
     float vx,vy;
 private:
     double savex,savey;

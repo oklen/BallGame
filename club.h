@@ -23,6 +23,7 @@ public:
     Vector2 getDir() const;
 
     int ball_radius= 20;
+    QPixmap* clubImage;
 private:
     Vector2 dir;
     Vector2 mcenter;

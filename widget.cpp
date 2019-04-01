@@ -26,17 +26,20 @@ bool Board::eventFilter(QObject *who, QEvent *Event)
         mousey = event->y();
         if(!club->isTooFar(mousex,mousey))
             club->setTops(mousex,mousey);
+        if(std::abs(mousex-shootline->beginAt.x)+
+                std::abs(mousey-shootline->beginAt.y)<ball_radius/2)
+            return true;
         shootline->dir = Vector2{mousex-shootline->beginAt.x,
     mousey-shootline->beginAt.y};
-        shootline->dir.united();
-        shootline->dir.reserved();
-        shootline->CalABC(shootline->beginAt,club->getDir());
-        shootline->showOn = true;
+            shootline->dir.united();
+            shootline->dir.reserved();
+            shootline->CalABC(shootline->beginAt,club->getDir());
+            shootline->showOn = true;
 
-        shootline->colTest(balls);
-        if(shootline->isMposEmpty()){
-            shootline->colTest(bounds);
-        }
+            shootline->colTest(balls);
+            if(shootline->isMposEmpty()){
+                shootline->colTest(bounds);
+            }
         update();
     }
     else if(Event->type()==QEvent::MouseButtonRelease&&selectedIndex!=-1){
@@ -93,17 +96,23 @@ Board::Board(QWidget *parent) :
     holes[0] = new Hole(Nhole_size/2,
                         Nhole_size/2,
                         Nhole_size/2);
+    holes[0]->indexs  = std::vector<int>{0,1,2};
     holes[1] = new Hole(Nhole_size/2,
                         bounds[1]->y+bounds[1]->yspan+Nhole_size/2,Nhole_size/2);
+    holes[1]->indexs = std::vector<int>{0,2,3};
     holes[2] = new Hole(width()-Nhole_size/2,Nhole_size/2,Nhole_size/2);
+    holes[2]->indexs = std::vector<int>{0,1,3};
     holes[3] = new Hole(width()-Nhole_size/2,
             bounds[1]->y+bounds[1]->yspan+Nhole_size/2,Nhole_size/2);
+    holes[3]->indexs = std::vector<int>{1,2,3};
     holes[4] = new Hole(Nhole_size+(width()-3*Nhole_size)/2+Nhole_size/2,
-                        Nhole_size/2-hole_shift,
-                        Nhole_size/2);
+                        Nhole_size/2-hole_shift*1.5,
+                        Nhole_size/1.5);
+//    holes[4]->indexs = std::vector<int>{0,1,2,3};
     holes[5] = new Hole(Nhole_size+(width()-3*Nhole_size)/2+Nhole_size/2,
-                        bounds[1]->y+bounds[1]->yspan+Nhole_size/2+hole_shift,
-                        Nhole_size/2);
+                        bounds[1]->y+bounds[1]->yspan+Nhole_size/1.5+hole_shift,
+                        Nhole_size/1.5);
+//    holes[5]->indexs = std::vector<int>{0,1,2,3};
     ui->setupUi(this);
     vectpen.setColor(Qt::green);
     vectpen.setWidth(10);
@@ -116,11 +125,14 @@ void Board::paintEvent(QPaintEvent *event)
     mpainter.begin(this);
     mpainter.setBrush(QColor(32,145,30));
     mpainter.drawRect(rect());
+//    mpainter.drawPixmap(rect(),QPixmap("../BallGame/images/Tabke.jpg"));
 
     for(int i=0;i<6;++i)
     {
-        bounds[i]->draw(mpainter);
         holes[i]->draw(mpainter);
+    }
+    for(int i=0;i<6;++i){
+        bounds[i]->draw(mpainter);
     }
     for(auto bb = balls.begin();bb!=balls.end();++bb)
         (*bb)->draw(mpainter);

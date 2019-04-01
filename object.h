@@ -8,6 +8,10 @@ class Object : public QObject
 {
     Q_OBJECT
 public:
+    enum ball_color{
+        bai=-6,hong=1,huang=2,lv=3,zong=4,lan=5,fen=6,hei=7,club = -1,
+        hole=-2
+    };
     explicit Object(QObject *parent = nullptr);
     Object(float x,float y,QColor color);
     virtual void draw(QPainter& painter) = 0;
