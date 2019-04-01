@@ -1,5 +1,5 @@
 #include "perseonstate.h"
-#include <Qpalette>
+#include <QPalette>
 
 
 

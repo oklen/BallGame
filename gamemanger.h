@@ -10,31 +10,35 @@
 constexpr static float time_span = 0.05;
 constexpr static float Bound_loss = 0.97;
 
-class GameManger:public QObject
+class GameWorker:public QObject
 {
+    Q_OBJECT
 public:
-    GameManger(Board* child);
+    GameWorker(Board* child);
     void start();
-    void nextRound();
-    void calScore();
+//    void nextRound();
+
     void calFalls();
+    void MoveBackBall();
+    void clearBalls();
     MainWindow mainWindow;
 
-private:
-    QTimer timer;
-    int score_playe1r=0,score_player2=0;
+    mutable std::vector<std::pair<Ball*,Ball*>> Col_Order;
+    std::vector<Ball*> falls;
+
     Board* board;
+    Player players[2];
+
+    int score_playe1r=0,score_player2=0;
 
     int who = 1;
-    Player players[2];
     bool someOneMove = false;
+
+//private:
     bool pushTheBall = false;
-    mutable std::vector<std::pair<Ball*,Ball*>> Col_Order;
 
-    std::vector<Ball*> falls;
-    Ball* firstCol = nullptr;
-
-    void clearBalls();
+signals:
+    void nextRound();
 public slots:
     void calMove();
     bool preciseDetectionCol(Ball& a,Ball& b) const;
