@@ -8,8 +8,8 @@
 #include "mainwindow.h"
 
 constexpr static float time_span = 0.05;
-constexpr static float Bound_loss = 0.97;
-
+constexpr static float Bound_loss = 0.7;
+constexpr static float Ball_loss = 0.40;
 class GameWorker:public QObject
 {
     Q_OBJECT

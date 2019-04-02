@@ -27,7 +27,11 @@ void ShootLine::draw(QPainter &mpainter)
                 EndPos.y = mpos[i].y;
             }
         }
-        mpainter.drawLine(beginAt.x,beginAt.y,EndPos.x,EndPos.y);
+        if(!std::isinf(EndPos.x)&&!std::isinf(EndPos.y)&&EndPos.x==EndPos.x
+                &&EndPos.y==EndPos.y)
+        {
+            mpainter.drawLine(beginAt.x,beginAt.y,EndPos.x,EndPos.y);
+        }
 
         targetBall->r = ball_radius;
         targetBall->x = EndPos.x;

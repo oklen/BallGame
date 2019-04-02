@@ -4,7 +4,7 @@
 
 
 PerseonState::PerseonState(QWidget *parent) : QWidget(parent),
-    personImage{ *new QImage("/root/图片/Lambda.png")},
+    personImage{ *new QImage("../BallGame/images/Face.jpg")},
     name("Players"),Score(QString::number(0)),
     rank(QString(" 大师"))
 {
@@ -45,10 +45,11 @@ PerseonState::PerseonState(QWidget *parent) : QWidget(parent),
 
     QVBoxLayout* vlayout1 = new QVBoxLayout;
     QLabel* image = new QLabel;
-    image->setPixmap(QPixmap::fromImage(personImage).scaled(80,70));
+    image->setFixedSize(QSize(130,100));
+    image->setPixmap(QPixmap::fromImage(personImage).scaled(image->size()));
 
     vlayout1->addWidget(image);
-    vlayout1->addWidget(nameLabel);
+    //vlayout1->addWidget(nameLabel);
 
     QVBoxLayout* vlayout2 = new QVBoxLayout;
     QHBoxLayout* hlayout1 = new QHBoxLayout;
@@ -57,6 +58,7 @@ PerseonState::PerseonState(QWidget *parent) : QWidget(parent),
 
     vlayout2->addWidget(rankL);
     vlayout2->addLayout(hlayout1);
+    vlayout2->addWidget(nameLabel);
 
     QHBoxLayout* hlayout2 = new QHBoxLayout;
     hlayout2->addLayout(vlayout1);

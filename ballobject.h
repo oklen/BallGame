@@ -2,10 +2,12 @@
 #define BALLOBJECT_H
 
 #include "object.h"
+#include "Resouces/ball_bank.h"
 
 class BallObject:public Object
 {
 public:
+
     static float scaleSize;
     BallObject(int x,int y,int r,QColor color);
     void draw(QPainter& painter) override;

@@ -51,7 +51,8 @@ SOURCES += \
     StateMachine/acquireorder.cpp \
     Widgets/controlbutton.cpp \
     Widgets/pausemenu.cpp \
-    Widgets/textlabel.cpp
+    Widgets/textlabel.cpp \
+    Resouces/ball_bank.cpp
 
 HEADERS += \
         widget.h \
@@ -81,7 +82,8 @@ HEADERS += \
     StateMachine/acquireorder.h \
     Widgets/controlbutton.h \
     Widgets/pausemenu.h \
-    Widgets/textlabel.h
+    Widgets/textlabel.h \
+    Resouces/ball_bank.h
 
 FORMS += \
         widget.ui

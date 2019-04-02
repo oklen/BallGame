@@ -7,7 +7,8 @@ Bound::Bound(QObject *parent) : Object(parent)
 
 Bound::Bound(int xpos, int ypos, int xspan, int yspan,QColor color)
     : Object(xpos,ypos,color),xspan{xspan},yspan{yspan},
-      m_rect{QRect(x,y,xspan,yspan)}
+      m_rect{QRect(x,y,xspan,yspan)},
+      image(new QPixmap("../BallGame/images/bound.png"))
 {
     m_pen.setColor(Qt::black);
     x = m_rect.x();
@@ -24,9 +25,11 @@ Bound::Bound(int xpos, int ypos, int xspan, int yspan,QColor color)
 
 void Bound::draw(QPainter &painter)
 {
-    painter.setBrush(m_brush);
-    painter.setPen(m_pen);
-    painter.drawRect(m_rect);
+//    painter.setBrush(m_brush);
+//    painter.setPen(m_pen);
+//    painter.drawRect(m_rect);
+//    qDebug()<<image->size();
+    painter.drawPixmap(m_rect,*image);
 }
 
 void Bound::setColor(QColor color)

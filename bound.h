@@ -17,6 +17,7 @@ public:
     void setColor(QColor color);
     int xspan,yspan;
     std::vector<BoundLine*> lines;
+    QPixmap *image = nullptr;
 signals:
 
 public slots:

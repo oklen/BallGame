@@ -1,5 +1,15 @@
 #include "ball.h"
 
+void Ball::draw(QPainter &mpainter)
+{
+    if(image.size().width()==0&&Ball_Bank::getBallImage(rank)!=nullptr)
+        image = Ball_Bank::getBallImage(rank)->scaled(2*r,2*r);
+    if(image.size().width()!=0)
+        mpainter.drawPixmap(x-r,y-r,image);
+    else
+     BallObject::draw(mpainter);
+}
+
 Ball::Ball(int x, int y, int r, QColor color):BallObject(x,y,r,color)
 {
     vx=vy=0;
