@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets
+QT       += core gui widgets multimedia
 
 TARGET = BillBoard
 TEMPLATE = app
@@ -52,7 +52,8 @@ SOURCES += \
     Widgets/controlbutton.cpp \
     Widgets/pausemenu.cpp \
     Widgets/textlabel.cpp \
-    Resouces/ball_bank.cpp
+    Resouces/ball_bank.cpp \
+    musicmanger.cpp
 
 HEADERS += \
         widget.h \
@@ -83,7 +84,8 @@ HEADERS += \
     Widgets/controlbutton.h \
     Widgets/pausemenu.h \
     Widgets/textlabel.h \
-    Resouces/ball_bank.h
+    Resouces/ball_bank.h \
+    musicmanger.h
 
 FORMS += \
         widget.ui
