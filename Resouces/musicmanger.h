@@ -8,19 +8,19 @@ class MusicManger
 public:
 
     MusicManger();
-    void playBallHitBall();
-    void playPutBall();
-    void playPolHitBall();
-    void doInitial();
+    static void playBallHitBall();
+    static void playPutBall();
+    static void playPolHitBall();
+
 
     static MusicManger* ss;
 private:
-
+    void doInitial();
     static MusicManger* instance();
     QMediaPlayer  *BHB;
     QMediaPlayer  *PB;
     QMediaPlayer  *PHB;
-    const int Volume=50;
+    const int Volume=100;
 
 } ;
 

@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 
+
 MainWindow::MainWindow(Board* board,QWidget *parent) : QWidget(parent),
     stateShower(new StateShower),board(board),pauseMenu(new PauseMenu),
     startGame(new ControlButton),GameTitile(new ControlButton)
@@ -12,6 +13,8 @@ MainWindow::MainWindow(Board* board,QWidget *parent) : QWidget(parent),
         per[i]->setFixedWidth(500);
         per[i]->setFixedHeight(130);
     }
+
+
     stateShower->setParent(this);
     this->setStyleSheet("background-color: black");
     board->setParent(this);

@@ -30,14 +30,14 @@ void MusicManger::playPutBall()
 
 void MusicManger::playPolHitBall()
 {
-    this->PHB->play();
+    instance()->PHB->play();
 }
 
 void MusicManger::doInitial()
 {
     this->PB=new QMediaPlayer;
     this->PB->setVolume(this->Volume);
-    this->PB->setMedia(QUrl::fromLocalFile("../BallGame/music/pol_hit.wav"));
+    this->PB->setMedia(QUrl::fromLocalFile("../BallGame/music/put_ball.wav"));
 
     this->BHB=new QMediaPlayer;
     this->BHB->setVolume(this->Volume);
@@ -51,8 +51,7 @@ void MusicManger::doInitial()
     //if(this->PB->error()>0){
     //    cout<<"Error "<<this->PB->error()<<"Happend! "<<"See "<<url<<endl;
     //}
-    assert(this->PB->error()==0 && this->BHB->error()==0 && this->PHB->error()==0);
-
+    assert(this->PB->isAvailable() && this->BHB->isAvailable() && this->PHB->isAvailable());
     // Something Bad happened, see error code above to know where is wrong.
 }
 
