@@ -83,6 +83,10 @@ public:
     float dot(Vector2& in){
         return x*in.x+y*in.y;
     }
+
+    float dot(float dx,float dy){
+        return x*dx+y*dy;
+    }
 };
 
 #endif // VECTOR2_H

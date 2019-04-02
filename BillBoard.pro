@@ -87,12 +87,9 @@ HEADERS += \
     Widgets/pausemenu.h \
     Widgets/textlabel.h \
     Resouces/ball_bank.h \
-<<<<<<< HEAD
     Resouces/bound_shape.h \
-    Resouces/gjk_al.h
-=======
+    Resouces/gjk_al.h  \
     Resouces/musicmanger.h
->>>>>>> f82ca48f6c515713fb30054987fd61a76cbf5c45
 
 FORMS += \
         widget.ui

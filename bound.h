@@ -19,6 +19,7 @@ public:
     int xspan,yspan;
     std::vector<BoundLine*> lines;
     QPixmap *image = nullptr;
+    QRect mrect;
 signals:
 
 public slots:
