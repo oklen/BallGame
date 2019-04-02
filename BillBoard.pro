@@ -52,7 +52,9 @@ SOURCES += \
     Widgets/controlbutton.cpp \
     Widgets/pausemenu.cpp \
     Widgets/textlabel.cpp \
-    Resouces/ball_bank.cpp
+    Resouces/ball_bank.cpp \
+    Resouces/bound_shape.cpp \
+    Resouces/gjk_al.cpp
 
 HEADERS += \
         widget.h \
@@ -83,7 +85,9 @@ HEADERS += \
     Widgets/controlbutton.h \
     Widgets/pausemenu.h \
     Widgets/textlabel.h \
-    Resouces/ball_bank.h
+    Resouces/ball_bank.h \
+    Resouces/bound_shape.h \
+    Resouces/gjk_al.h
 
 FORMS += \
         widget.ui

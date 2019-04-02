@@ -34,7 +34,6 @@ bool BoundLine::MeetAt(float a,float b,float c
         meetPoint.y -=length;
         else meetPoint.y +=length;
             meetPoint.x -=dir.x*std::abs(length/dir.y);
-
     }else if(mb==0){
         if(dir.x>0)
             meetPoint.x -=length;

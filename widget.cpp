@@ -72,26 +72,34 @@ Board::Board(QWidget *parent) :
                           0,
                           (width()-3*Nhole_size)/2,
                           Nbound_width);
+    bounds[0]->image = new QPixmap("../BallGame/images/row_bound_down.png");
     bounds[1] = new Bound(0,Nhole_size,
                           Nbound_width,
                           height()-2*Nhole_size);
+    bounds[1]->image = new QPixmap("../BallGame/images/row_bound_right.png");
     bounds[2] = new Bound(Nhole_size,
                           height()-Nbound_width,
                           (width()-3*Nhole_size)/2,
                           Nbound_width);
+    bounds[2]->image = new QPixmap("../BallGame/images/row_bound_up.png");
+
     bounds[3] = new Bound(width()-Nbound_width,
                           Nhole_size,
                           Nbound_width,
                           height()-2*Nhole_size);
+
+    bounds[3]->image = new QPixmap("../BallGame/images/row_bound_left.png");
     bounds[4] = new Bound(Nhole_size+(width()-3*Nhole_size)/2+Nhole_size,
                           0,
                           (width()-3*Nhole_size)/2,
                           Nbound_width);
+    bounds[4]->image = new QPixmap("../BallGame/images/row_bound_down.png");
+
     bounds[5] = new Bound(Nhole_size+(width()-3*Nhole_size)/2+Nhole_size,
                           height()-Nbound_width,
                           (width()-3*Nhole_size)/2,
                           Nbound_width);
-
+    bounds[5]->image = new QPixmap("../BallGame/images/row_bound_up.png");
 
     holes[0] = new Hole(Nhole_size/2,
                         Nhole_size/2,
@@ -105,13 +113,20 @@ Board::Board(QWidget *parent) :
     holes[3] = new Hole(width()-Nhole_size/2,
             bounds[1]->y+bounds[1]->yspan+Nhole_size/2,Nhole_size/2);
     holes[3]->indexs = std::vector<int>{1,2,3};
+//    holes[4] = new Hole(Nhole_size+(width()-3*Nhole_size)/2+Nhole_size/2,
+//                        Nhole_size/2-hole_shift*1.5,
+//                        Nhole_size/1.5);
+
     holes[4] = new Hole(Nhole_size+(width()-3*Nhole_size)/2+Nhole_size/2,
                         Nhole_size/2-hole_shift*1.5,
-                        Nhole_size/1.5);
+                        Nhole_size/2);
 //    holes[4]->indexs = std::vector<int>{0,1,2,3};
+//    holes[5] = new Hole(Nhole_size+(width()-3*Nhole_size)/2+Nhole_size/2,
+//                        bounds[1]->y+bounds[1]->yspan+Nhole_size/1.5+hole_shift,
+//                        Nhole_size/1.5);
     holes[5] = new Hole(Nhole_size+(width()-3*Nhole_size)/2+Nhole_size/2,
                         bounds[1]->y+bounds[1]->yspan+Nhole_size/1.5+hole_shift,
-                        Nhole_size/1.5);
+                        Nhole_size/2);
 //    holes[5]->indexs = std::vector<int>{0,1,2,3};
     ui->setupUi(this);
     vectpen.setColor(Qt::green);
