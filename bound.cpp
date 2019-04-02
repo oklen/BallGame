@@ -25,11 +25,11 @@ Bound::Bound(int xpos, int ypos, int xspan, int yspan,QColor color)
 
 void Bound::draw(QPainter &painter)
 {
-//    painter.setBrush(m_brush);
-//    painter.setPen(m_pen);
-//    painter.drawRect(m_rect);
+    painter.setBrush(m_brush);
+    painter.setPen(m_pen);
+    painter.drawRect(m_rect);
 //    qDebug()<<image->size();
-    painter.drawPixmap(m_rect,*image);
+//    painter.drawPixmap(m_rect,*image);
 }
 
 void Bound::setColor(QColor color)

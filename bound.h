@@ -13,7 +13,7 @@ class Bound : public Object
     Q_OBJECT
 public:
     explicit Bound(QObject *parent = nullptr);
-    Bound(int xpos, int ypos, int xspan, int yspan,QColor color=QColor(Qt::red));
+    Bound(int xpos, int ypos, int xspan, int yspan,QColor color=QColor(0,0,0,0));
     void draw(QPainter& painter);
     void setColor(QColor color);
     int xspan,yspan;

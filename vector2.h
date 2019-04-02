@@ -2,6 +2,7 @@
 #define VECTOR2_H
 #include <cmath>
 #include <iostream>
+#include <ostream>
 
 class Vector2
 {
@@ -57,8 +58,16 @@ public:
         return *this;
     }
 
-    Vector2 perpendicular(Vector2& in){
+//    Vector2 operator-(Vector2 in){
+//        return Vector2(x-in.x,y-in.y);
+//    }
+
+    static Vector2 perpendicular(Vector2 in){
         return Vector2(in.y,-in.x);
+    }
+
+    Vector2 negatle(){
+        return Vector2(-x,-y);
     }
 
     float lengthSquared() {
@@ -80,12 +89,16 @@ public:
         y*=-1;
     }
 
-    float dot(Vector2& in){
-        return x*in.x+y*in.y;
+    double dot(Vector2 in){
+        return (double)x*in.x+y*in.y;
     }
 
     float dot(float dx,float dy){
         return x*dx+y*dy;
+    }
+    std::ostream& operator<<(std::ostream& out){
+        out << x<< " "<< y;
+        return out;
     }
 };
 

@@ -55,7 +55,8 @@ SOURCES += \
     Widgets/pausemenu.cpp \
     Widgets/textlabel.cpp \
     Resouces/ball_bank.cpp \
-    Resouces/musicmanger.cpp
+    Resouces/musicmanger.cpp \
+    Test/gjk_test.cpp
     
 HEADERS += \
         widget.h \
@@ -89,7 +90,8 @@ HEADERS += \
     Resouces/ball_bank.h \
     Resouces/bound_shape.h \
     Resouces/gjk_al.h  \
-    Resouces/musicmanger.h
+    Resouces/musicmanger.h \
+    Test/gjk_test.h
 
 FORMS += \
         widget.ui
