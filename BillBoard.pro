@@ -53,7 +53,8 @@ SOURCES += \
     Widgets/pausemenu.cpp \
     Widgets/textlabel.cpp \
     Resouces/ball_bank.cpp \
-    musicmanger.cpp
+    Resouces/musicmanger.cpp
+    
 
 HEADERS += \
         widget.h \
@@ -85,7 +86,7 @@ HEADERS += \
     Widgets/pausemenu.h \
     Widgets/textlabel.h \
     Resouces/ball_bank.h \
-    musicmanger.h
+    Resouces/musicmanger.h
 
 FORMS += \
         widget.ui
