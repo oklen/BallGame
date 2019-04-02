@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets
+QT       += core gui widgets multimedia
 
 TARGET = BillBoard
 TEMPLATE = app
@@ -48,14 +48,15 @@ SOURCES += \
     StateMachine/acquirefailed.cpp \
     globalcontrol.cpp \
     vgcontrol.cpp \
+    Resouces/bound_shape.cpp \
+    Resouces/gjk_al.cpp \
     StateMachine/acquireorder.cpp \
     Widgets/controlbutton.cpp \
     Widgets/pausemenu.cpp \
     Widgets/textlabel.cpp \
     Resouces/ball_bank.cpp \
-    Resouces/bound_shape.cpp \
-    Resouces/gjk_al.cpp
-
+    Resouces/musicmanger.cpp
+    
 HEADERS += \
         widget.h \
     bound.h \
@@ -86,8 +87,12 @@ HEADERS += \
     Widgets/pausemenu.h \
     Widgets/textlabel.h \
     Resouces/ball_bank.h \
+<<<<<<< HEAD
     Resouces/bound_shape.h \
     Resouces/gjk_al.h
+=======
+    Resouces/musicmanger.h
+>>>>>>> f82ca48f6c515713fb30054987fd61a76cbf5c45
 
 FORMS += \
         widget.ui

@@ -1,5 +1,6 @@
 #include "stateshower.h"
 #include <QPainter>
+#include"Resouces/musicmanger.h"
 
 StateShower::StateShower(QWidget *parent) : QWidget(parent)
 {
@@ -43,4 +44,5 @@ void StateShower::reduceTime()
 {
     if(time.content.toInt()==0) {emit timeOut();resetTime();}
     else time.setText(" "+QString::number(time.content.toInt()-1));
+
 }

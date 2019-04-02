@@ -9,6 +9,7 @@
 #include <QTimer>
 #include <QGraphicsColorizeEffect>
 
+
 class MainWindow : public QWidget
 {
     Q_OBJECT
