@@ -27,7 +27,8 @@ void Bound::draw(QPainter &painter)
 {
     painter.setBrush(m_brush);
     painter.setPen(m_pen);
-    painter.drawRect(m_rect);
+//    painter.drawRect(m_rect);
+    painter.drawRect(QRect(x,y,xspan,yspan));
 //    qDebug()<<image->size();
 //    painter.drawPixmap(m_rect,*image);
 }

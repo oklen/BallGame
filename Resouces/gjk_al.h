@@ -7,6 +7,7 @@
 #include <deque>
 #include "Test/gjk_test.h"
 
+
 class GJK_Al
 {
 public:
@@ -35,25 +36,19 @@ public:
     }
 
     Vector2 getFarestPoint(Ball*ball ,Vector2 dir){
-//        qDebug() << "ball:"<<ball->x+dir.x*ball->r<< ball->y+dir.y*ball->r;
         return Vector2(ball->x,ball->y)+dir*ball->r;
     }
 
     Vector2 getFarestPoint(Bound* bound,Vector2 dir){
         Vector2 result;
         float maxProduct = dir.dot(bound->lines[0]->mx1,bound->lines[0]->my1);
-
         for(int i=0;i<bound->lines.size();++i){
             if(maxProduct<dir.dot(bound->lines[i]->mx1,bound->lines[i]->my1))
             {
                 result.x = bound->lines[i]->mx1;
                 result.y = bound->lines[i]->my1;
+                maxProduct = dir.dot(bound->lines[i]->mx1,bound->lines[i]->my1);
             }
-//            if(maxProduct<dir.dot(bound->lines[i]->mx2,bound->lines[i]->my2))
-//            {
-//                result.x = bound->lines[i]->mx2;
-//                result.y = bound->lines[i]->my2;
-//            }
         }
 //        qDebug() << result.x << result.y;
         return result;
@@ -65,9 +60,11 @@ public:
 
     Vector2 getTripleVector(Vector2 a,Vector2 b,Vector2 c){
 //        qDebug() << "tirple:"<<a.x << a.y << b.x << b.y << c.x << c.y;
-
-        float ac = a.dot(c);
-        float bc = b.dot(c);
+        a.united();
+        b.united();
+        c.united();
+        double ac = a.dot(c);
+        double bc = b.dot(c);
 
         return Vector2(b.x*ac-a.x*bc,b.y*ac-a.y*bc);
     }
@@ -76,18 +73,22 @@ public:
 
         Vector2 boundCenter = getCenterPoint(bound),
                 ballCenter = getCenterPoint(ball);
-        Vector2 d(1,0);
+        Vector2 d(1,1);
 
         if((d.x==0)&&(d.y==0)) d.y = 1.0f;
         d.united();
 
         p1 = support(bound,ball,d);
-
+        qDebug() << p1.x << p1.y;
         if(p1.dot(d)<=0) return false;
 
-        p2 = support(bound,ball,d*-1);
+        d*=-1;
+        p2 = support(bound,ball,d);
+
+        if(p2.dot(d)<=0) return false;
 
         d = getTripleVector(p2-p1,p1*-1,p2-p1);//Perform ABxAOxAB
+
         if(p2.dot(d)==0) d = Vector2::perpendicular(p1-p2);
 
         qDebug() << "d:"<<d.x << d.y;
@@ -95,41 +96,42 @@ public:
         tester.p1 = &p1;
         tester.p2 = &p2;
         int cnt = 0;
+
         while(true){
-            qDebug() << "really d:"<< d.x << d.y;
             d.united();
-            qDebug() << "united d:" << d.x << d.y;
+//            qDebug() << "united d:" << d.x << d.y;
             p3 = support(bound,ball,d);
 
             tester.p3 = &p3;
             tester.wait();
-//            if(++cnt>20) return false;
+//            Vector2 tp1 = p1,tp2 = p2,tp3 = p3;
+//            tp1.united();tp2.united();tp3.united();
+            if(++cnt>35) return false;
+//            qDebug() <<  "result:"<< (d-tp3).length() << (d-tp2).length() <<
+//                         (d-tp1).length();
 
-//            qDebug() << "p1x:"<<p1.x << "p1y:"<<p1.y << "p2x:"<<p2.x
-//                     << "p2y:"<<p2.y << "p3x:"<<p3.x << "p3y:"<<p3.y;
-            //tester.update();
-
-            qDebug() <<d.dot(p3);
-            if(p3.length()<10) return true;
             if(d.dot(p3)<=0) {
-                qDebug() << "length:" <<p3.length();
-
                 return false;
             }
 
-            //Vector2 toSide = getTripleVector(p2-p3,p1-p3,p1-p3);
             Vector2 toSide = getTripleVector(p1-p3,p2-p3,p1-p3)*-1;
+            toSide.united();
+//            qDebug() << "key process 2:" << toSide.dot(p3*-1);
             if(toSide.dot(p3*-1)>=0){
                 d  = toSide;
-            }else{
-                //toSide = getTripleVector(p2-p3,p1-p3,p2-p3)*-1;
+            }
+            else{
                 toSide = getTripleVector(p1-p3,p2-p3,p2-p3);
-                if(toSide.dot(p3*-1)<0){
+                toSide.united();
+//                qDebug() << "key process:" << toSide.dot(p3*-1)
+//                         << p3.x << p3.y << toSide.x << toSide.y;
+//                qDebug() << "cal:" << p3.x*toSide.x << p3.y*toSide.y;
+                if(toSide.dot(p3*-1)<0)
+                {
                     return true;
                 }
                 d = toSide;
                 p1 = p2;
-                //p2 = p1;
             }
             p2 = p3;
         }

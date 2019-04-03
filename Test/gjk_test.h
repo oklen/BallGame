@@ -5,6 +5,7 @@
 #include "bound.h"
 #include "ball.h"
 #include <thread>
+#include <QTimer>
 
 class GJK_Test : public QWidget
 {
@@ -19,9 +20,11 @@ public:
     void paintEvent(QPaintEvent *event);
     QPainter mpainter;
     QPixmap mp;
+    QTimer timer;
 signals:
 
 public slots:
+    void move();
 };
 
 #endif // GJK_TEST_H
