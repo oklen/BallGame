@@ -8,11 +8,11 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-//  GlobalControl globalContorl;
-    GJK_Al al;
-    al.tester.test1();
-    qDebug()  << al.isCol(al.tester.bound,al.tester.ball);
-    al.tester.timer.stop();
+  GlobalControl globalContorl;
+//    GJK_Al al;
+//    al.tester.test1();
+//    qDebug()  << al.isCol(al.tester.bound,al.tester.ball);
+//    al.tester.timer.stop();
 //      PauseMenu pause;
 //      pause.show();
 //    ControlButton cb;

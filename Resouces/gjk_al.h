@@ -104,9 +104,9 @@ public:
 
             tester.p3 = &p3;
             tester.wait();
+
 //            Vector2 tp1 = p1,tp2 = p2,tp3 = p3;
 //            tp1.united();tp2.united();tp3.united();
-            if(++cnt>35) return false;
 //            qDebug() <<  "result:"<< (d-tp3).length() << (d-tp2).length() <<
 //                         (d-tp1).length();
 
@@ -116,7 +116,7 @@ public:
 
             Vector2 toSide = getTripleVector(p1-p3,p2-p3,p1-p3)*-1;
             toSide.united();
-//            qDebug() << "key process 2:" << toSide.dot(p3*-1);
+
             if(toSide.dot(p3*-1)>=0){
                 d  = toSide;
             }
