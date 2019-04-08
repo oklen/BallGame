@@ -34,6 +34,8 @@ GlobalControl::GlobalControl():
         this->gameContinue();
         this->worker->mainWindow.pauseMenu->hide();
     });
+    worker->mainWindow.per[0]->nameLabel->setText("oklen A");
+    worker->mainWindow.per[1]->nameLabel->setText("oklen B");
 }
 
 GameState *GlobalControl::getAR()

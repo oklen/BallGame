@@ -14,10 +14,10 @@ class PerseonState : public QWidget
 public:
     explicit PerseonState(QWidget *parent = nullptr);
     QImage personImage;
-    QString name;
     QString rank;
     QString Score;
 
+    TextLabel* nameLabel;
     void setScore(int in);
     bool myTurn = false;
 

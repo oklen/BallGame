@@ -5,7 +5,7 @@
 
 PerseonState::PerseonState(QWidget *parent) : QWidget(parent),
     personImage{ *new QImage("../BallGame/images/Face.jpg")},
-    name("Players"),Score(QString::number(0)),
+    Score(QString::number(0)),
     rank(QString(" 大师"))
 {
     QFont personFont;
@@ -18,7 +18,7 @@ PerseonState::PerseonState(QWidget *parent) : QWidget(parent),
     rankL->TextSize = 20;
     rankL->useTransparent = true;
 
-    TextLabel* nameLabel = new TextLabel(name);
+    nameLabel = new TextLabel;
     nameLabel->setFont(personFont);
 //    rankL->setStyleSheet("color:gold;background-color: rgb(243,178,26)");
 
