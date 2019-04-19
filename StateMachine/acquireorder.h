@@ -2,7 +2,7 @@
 #define ACQUIREORDER_H
 
 #include "gamestate.h"
-#include "vgcontrol.h"
+#include "Widgets/vgcontrol.h"
 
 class AcquireOrder: public GameState
 {

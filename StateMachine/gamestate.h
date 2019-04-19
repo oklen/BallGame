@@ -1,7 +1,7 @@
 #ifndef GAMESTATE_H
 #define GAMESTATE_H
 
-#include "gamemanger.h"
+#include "Widgets/gamemanger.h"
 
 class GameState
 {

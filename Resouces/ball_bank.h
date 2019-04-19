@@ -2,7 +2,7 @@
 #define BALL_BANK_H
 
 #include <QPixmap>
-#include "object.h"
+#include "Widgets/object.h"
 #include <QDebug>
 
 #define    NAME(name)    (#name)

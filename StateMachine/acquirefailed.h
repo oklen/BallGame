@@ -2,7 +2,7 @@
 #define ACQUIREFAILED_H
 
 #include "gamestate.h"
-#include "vgcontrol.h"
+#include "Widgets/vgcontrol.h"
 
 class AcquireFailed:public GameState
 {

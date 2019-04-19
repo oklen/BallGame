@@ -2,7 +2,7 @@
 #define ACQUIRERED_H
 
 #include "gamestate.h"
-#include "vgcontrol.h"
+#include "Widgets/vgcontrol.h"
 
 class AcquireRed : public GameState
 {

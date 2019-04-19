@@ -24,30 +24,30 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        widget.cpp \
-    bound.cpp \
-    hole.cpp \
-    object.cpp \
-    ballobject.cpp \
-    ball.cpp \
-    gamemanger.cpp \
-    testboard.cpp \
-    vector2.cpp \
+    Widgets/widget.cpp \
+    Widgets/bound.cpp \
+    Widgets/hole.cpp \
+    Widgets/object.cpp \
+    Widgets/ballobject.cpp \
+    Widgets/ball.cpp \
+    Widgets/gamemanger.cpp \
+    Widgets/testboard.cpp \
+    Widgets/vector2.cpp \
     Widgets/rounder.cpp \
-    player.cpp \
-    club.cpp \
-    shootline.cpp \
-    lineobject.cpp \
-    mainwindow.cpp \
-    perseonstate.cpp \
-    stateshower.cpp \
-    boundline.cpp \
+    Widgets/player.cpp \
+    Widgets/club.cpp \
+    Widgets/shootline.cpp \
+    Widgets/lineobject.cpp \
+    Widgets/mainwindow.cpp \
+    Widgets/perseonstate.cpp \
+    Widgets/stateshower.cpp \
+    Widgets/boundline.cpp \
     StateMachine/gamestate.cpp \
     StateMachine/acquirered.cpp \
     StateMachine/acquirecolor.cpp \
     StateMachine/acquirefailed.cpp \
-    globalcontrol.cpp \
-    vgcontrol.cpp \
+    Widgets/globalcontrol.cpp \
+    Widgets/vgcontrol.cpp \
     Resouces/bound_shape.cpp \
     Resouces/gjk_al.cpp \
     StateMachine/acquireorder.cpp \
@@ -59,30 +59,30 @@ SOURCES += \
     Test/gjk_test.cpp
     
 HEADERS += \
-        widget.h \
-    bound.h \
-    hole.h \
-    object.h \
-    ballobject.h \
-    ball.h \
-    gamemanger.h \
-    testboard.h \
-    vector2.h \
+    Widgets/widget.h \
+    Widgets/bound.h \
+    Widgets/hole.h \
+    Widgets/object.h \
+    Widgets/ballobject.h \
+    Widgets/ball.h \
+    Widgets/gamemanger.h \
+    Widgets/testboard.h \
+    Widgets/vector2.h \
     Widgets/rounder.h \
-    player.h \
-    club.h \
-    shootline.h \
-    lineobject.h \
-    mainwindow.h \
-    perseonstate.h \
-    stateshower.h \
-    boundline.h \
+    Widgets/player.h \
+    Widgets/club.h \
+    Widgets/shootline.h \
+    Widgets/lineobject.h \
+    Widgets/mainwindow.h \
+    Widgets/perseonstate.h \
+    Widgets/stateshower.h \
+    Widgets/boundline.h \
     StateMachine/gamestate.h \
     StateMachine/acquirered.h \
     StateMachine/acquirecolor.h \
     StateMachine/acquirefailed.h \
-    globalcontrol.h \
-    vgcontrol.h \
+    Widgets/globalcontrol.h \
+    Widgets/vgcontrol.h \
     StateMachine/acquireorder.h \
     Widgets/controlbutton.h \
     Widgets/pausemenu.h \

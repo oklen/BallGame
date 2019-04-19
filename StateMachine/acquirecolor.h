@@ -2,7 +2,7 @@
 #define ACQUIRECOLOR_H
 
 #include "gamestate.h"
-#include "vgcontrol.h"
+#include "Widgets/vgcontrol.h"
 
 class AcquireColor:public GameState
 {
