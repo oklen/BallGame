@@ -2,8 +2,8 @@
 #define GJK_TEST_H
 
 #include <QWidget>
-#include "bound.h"
-#include "ball.h"
+#include "Widgets/bound.h"
+#include "Widgets/ball.h"
 #include <thread>
 #include <QTimer>
 

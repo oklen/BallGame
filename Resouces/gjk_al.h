@@ -1,9 +1,9 @@
 #ifndef GJK_AL_H
 #define GJK_AL_H
 
-#include <vector2.h>
-#include <ball.h>
-#include "bound.h"
+#include "Widgets/vector2.h"
+#include "Widgets/ball.h"
+#include "Widgets/bound.h"
 #include <deque>
 #include "Test/gjk_test.h"
 

@@ -1,14 +1,14 @@
-#include "gamemanger.h"
+#include "Widgets/gamemanger.h"
 #include <QApplication>
-#include "testboard.h"
-#include "globalcontrol.h"
+#include "Widgets/testboard.h"
+#include "Widgets/globalcontrol.h"
 #include "Widgets/controlbutton.h"
 #include "Widgets/pausemenu.h"
 #include "Resouces/gjk_al.h"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-  GlobalControl globalContorl;
+     GlobalControl globalContorl;
 //    GJK_Al al;
 //    al.tester.test1();
 //    qDebug()  << al.isCol(al.tester.bound,al.tester.ball);
