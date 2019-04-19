@@ -15,6 +15,7 @@ GlobalControl::GlobalControl():
     });
     *state = acquireRed;
 
+
     worker->mainWindow.showFullScreen();
     QObject::connect(worker->mainWindow.startGame,&ControlButton::mpress,[this](){
         this->restart();
